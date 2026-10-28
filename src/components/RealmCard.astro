@@ -1,9 +1,9 @@
 ---
 const { realm } = Astro.props;
-const under = realm.id === 'underworld';
+const under = realm.id !== 'overworld';
 ---
 <article class:list={['panel', 'card', 'realm-card', { under }]}>
-  <h3><span class="ico">{under ? '🌋' : '🌳'}</span>{realm.name}</h3>
+  <h3><span class="ico">{{ overworld: '🌳', sottosopra: '🌋', 'dimensione-x': '🕰️' }[realm.id]}</span>{realm.name}</h3>
   <div class="danger" aria-label={`Pericolo ${realm.danger} su 5`}>
     Pericolo: {[1, 2, 3, 4, 5].map((n) => <i class:list={{ on: n <= realm.danger }}></i>)}
   </div>

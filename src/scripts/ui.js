@@ -114,7 +114,7 @@ document.querySelectorAll('[data-showcase]').forEach((root) => {
   restart();
 });
 
-// Tab (I Due Regni)
+// Tab (le dimensioni)
 document.querySelectorAll('[data-tabs]').forEach((root) => {
   const btns = [...root.querySelectorAll('[data-tab]')];
   const panes = [...root.querySelectorAll('[data-pane]')];
@@ -124,7 +124,8 @@ document.querySelectorAll('[data-tabs]').forEach((root) => {
     document.documentElement.dataset.realm = id;
   };
   btns.forEach((b) => b.addEventListener('click', () => select(b.dataset.tab)));
-  select(location.hash.slice(1) === 'underworld' ? 'underworld' : btns[0].dataset.tab);
+  const h = location.hash.slice(1);
+  select(btns.some((b) => b.dataset.tab === h) ? h : btns[0].dataset.tab);
 });
 
 // Conta numeri (statistiche)

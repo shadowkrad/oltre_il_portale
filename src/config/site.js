@@ -4,7 +4,7 @@ export const site = {
   tagline: 'Server Minecraft Fantasy',
   host: 'minecraft.guidelli.net',
   port: 25565,
-  version: '1.20+',
+  version: '26.3',
   edition: 'Java Edition',
   discord: 'https://discord.gg',
   // Link YouTube (embed) / Vimeo / MP4 del trailer. Vuoto = sezione nascosta.
@@ -19,7 +19,7 @@ export const address = `${site.host}:${site.port}`;
 export const nav = [
   { href: '/', label: 'Home' },
   { href: '/istruzioni/', label: 'Come Entrare' },
-  { href: '/mondi/', label: 'I Due Regni' },
+  { href: '/mondi/', label: 'Le Dimensioni' },
   { href: '/gameplay/', label: 'Gameplay' },
   { href: '/mappa/', label: 'Mappa' },
   { href: '/regolamento/', label: 'Regolamento' },

@@ -3,10 +3,10 @@ import Base from '../layouts/Base.astro';
 import RealmCard from '../components/RealmCard.astro';
 import { realms } from '../config/content.js';
 ---
-<Base title="I Due Regni" description="Le Terre Emerse e il Sottomondo: le due dimensioni di Oltre il Portale.">
+<Base title="Le Dimensioni" description="Le Terre Emerse, il Sottosopra e la Dimensione X: le tre dimensioni di Oltre il Portale.">
   <header class="page-title container">
-    <h1>La Frattura tra i Due Regni</h1>
-    <p>Una spaccatura arcana ha diviso l'esistenza in due dimensioni speculari.</p>
+    <h1>Tre dimensioni, un solo mondo</h1>
+    <p>Quello che costruisci in superficie ha un riflesso sotto di te, e un'ombra oltre il vuoto.</p>
   </header>
 
   <section class="section container" data-tabs>
@@ -16,7 +16,7 @@ import { realms } from '../config/content.js';
       ))}
     </div>
     {realms.map((r) => (
-      <div class="pane" data-pane={r.id} id={r.id} role="tabpanel">
+      <div class="pane" data-pane={r.id} role="tabpanel">
         <RealmCard realm={r}>
           <a class="mc-btn primary" href="/mappa/">Vedi sulla mappa</a>
         </RealmCard>

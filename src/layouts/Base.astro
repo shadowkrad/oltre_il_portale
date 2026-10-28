@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import { site } from '../config/site.js';
 import { textures } from '../lib/textures.js';
 
-const { title, description = `${site.name}: server Minecraft fantasy con Terre Emerse e Sottomondo. IP ${site.host}:${site.port}` } = Astro.props;
+const { title, description = `${site.name}: server Minecraft fantasy con Terre Emerse, Sottosopra e Dimensione X. IP ${site.host}:${site.port}` } = Astro.props;
 const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.tagline}`;
 const vars = Object.entries(textures).map(([k, v]) => `--tex-${k}:${v}`).join(';');
 const clientConfig = { host: site.host, port: site.port, version: site.version, edition: site.edition, refreshSeconds: site.refreshSeconds };

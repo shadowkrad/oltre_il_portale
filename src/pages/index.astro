@@ -6,11 +6,11 @@ import { site, address } from '../config/site.js';
 import { pillars, realms, steps } from '../config/content.js';
 
 const slides = [
-  { icon: '🌀', title: 'Due mondi, una Frattura', text: 'Le Terre Emerse in superficie, il Sottomondo nell\'abisso. Una spaccatura arcana li ha divisi: scegli dove forgiare la tua leggenda.', href: '/mondi/', cta: 'Esplora i Due Regni' },
-  ...pillars.slice(0, 4).map((p) => ({ ...p, cta: 'Scopri di più' })),
-  { icon: '🗺️', title: 'Mappa interattiva', text: 'Trova il Portale, le città, le faglie dimensionali e il Cratere dell\'Abisso. Clicca i luoghi per scoprirne i segreti.', href: '/mappa/', cta: 'Apri la mappa' },
+  { icon: '🌀', title: 'Tre dimensioni, un solo mondo', text: 'Le Terre Emerse in superficie, il Sottosopra che ne è lo specchio corrotto, la Dimensione X oltre il vuoto. Scegli dove forgiare la tua leggenda.', href: '/mondi/', cta: 'Esplora le Dimensioni' },
+  ...pillars.filter((p) => p.id !== 'fairplay').map((p) => ({ ...p, href: `/gameplay/#${p.id}`, cta: 'Scopri di più' })),
+  { icon: '🗺️', title: 'Mappa interattiva', text: 'Esplora il mondo dall\'alto: città, torri, cripte e il Cratere dell\'Abisso, direttamente dal browser.', href: '/mappa/', cta: 'Apri la mappa' },
 ];
-const phrases = ['Esplora le Terre Emerse.', 'Sfida il Sottomondo.', 'Costruisci la tua gilda.', 'Nessun pay-to-win. Mai.'];
+const phrases = ['Esplora le Terre Emerse.', 'Attraversa il Sottosopra.', 'Prendi il treno a vapore.', 'Sfida la Dimensione X.', 'Nessun pay-to-win. Mai.'];
 const video = site.videoUrl;
 ---
 <Base>
@@ -60,7 +60,7 @@ const video = site.videoUrl;
 
   <section class="section container reveal">
     <div class="section-head">
-      <h2>I Due Regni</h2>
+      <h2>Le Tre Dimensioni</h2>
     </div>
     <div class="grid">
       {realms.map((r) => (
@@ -73,7 +73,7 @@ const video = site.videoUrl;
     <div class="panel center">
       <h2>Il reame in una mappa</h2>
       <canvas id="map-thumb" class="map-thumb" aria-label="Anteprima della mappa del reame"></canvas>
-      <p class="mt">Luoghi, città, faglie dimensionali e l'ingresso al Sottomondo.</p>
+      <p class="mt">Città, torri, cripte e il Cratere dell'Abisso, visti dall'alto.</p>
       <a class="mc-btn primary" href="/mappa/">Apri la mappa interattiva</a>
     </div>
   </section>
