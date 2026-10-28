@@ -68,10 +68,10 @@ export const steps = [
 ];
 
 export const bedrockSteps = [
-  { title: 'Apri Minecraft Bedrock', text: 'Funziona su Windows, Android, iOS, Xbox, PlayStation e Switch. Servono versioni Bedrock comprese fra <strong>26.40 e 26.60</strong>: aggiorna il gioco se non riesci a entrare.' },
-  { title: 'Gioca → Server → Aggiungi server', text: 'Dalla schermata <strong>Gioca</strong> apri la scheda <strong>Server</strong> e premi <strong>Aggiungi server</strong>.' },
-  { title: 'Inserisci indirizzo e porta', text: 'Nome a piacere, poi indirizzo e porta qui sotto. La porta è la stessa del Java (25565): Bedrock la usa in UDP.', bedrock: true },
-  { title: 'Entra nel mondo', text: 'Salva, seleziona il server dalla lista e premi <strong>Entra</strong>. Il tuo nome sarà quello del tuo account Microsoft/Xbox.' },
+  { title: 'Apri Minecraft Bedrock', text: 'Funziona su Windows, Android, iOS, Xbox, PlayStation e Switch. Se non riesci a entrare, aggiorna il gioco all’ultima versione disponibile.' },
+  { title: 'Il modo più rapido: la pagina di accesso', text: 'Dal dispositivo su cui giochi premi il pulsante qui sotto: la pagina ti propone <strong>Entra subito</strong> oppure <strong>Aggiungi alla lista server</strong>.', joinLink: true },
+  { title: 'Oppure aggiungi il server a mano', text: 'Gioca → Server → Aggiungi server, poi inserisci indirizzo e porta qui sotto. <strong>Attenzione:</strong> per Bedrock sono diversi da quelli Java.', bedrock: true },
+  { title: 'Entra nel mondo', text: 'Seleziona il server dalla lista e premi <strong>Entra</strong>. Il tuo nome sarà quello del tuo account Microsoft/Xbox.' },
 ];
 
 export const faq = [
@@ -82,6 +82,7 @@ export const faq = [
   { q: 'Come si va nel Sottosopra?', a: 'Attraverso un portale del Nether, come in Minecraft. Le coordinate coincidono con la superficie: se sopra c\'è una città, sotto c\'è la sua versione corrotta.' },
   { q: 'Come si usa il treno?', a: 'Le città collegate hanno una stazione di legno. Cerca i binari fuori dall\'abitato e seguili: li percorrono le locomotive a vapore.' },
   { q: 'Posso usare mod?', a: 'Solo mod grafiche o prestazionali come Sodium, OptiFine o Iris. Qualunque mod che dia vantaggi è vietata.' },
+  { q: 'Da Bedrock non riesco a entrare', a: 'Non usare l\'indirizzo Java (minecraft.guidelli.net:25565): per Bedrock vale solo quello indicato nella scheda Bedrock di questa pagina, che passa dalla pagina di accesso. Controlla anche che lo stato in alto sia ONLINE e che il gioco sia aggiornato. Se persiste, scrivici su Discord.' },
   { q: 'Non riesco a connettermi, cosa faccio?', a: 'Controlla che lo stato in alto sia ONLINE, che la versione del client sia quella indicata e che l\'indirizzo non contenga spazi. Se persiste, scrivici su Discord.' },
   { q: 'È gratis?', a: 'Sì. Nessun contenuto a pagamento che dia vantaggi: il server è 100% fair play.' },
 ];

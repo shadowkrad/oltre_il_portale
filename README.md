@@ -29,3 +29,7 @@ docker compose up -d --build   # produzione su http://localhost:3010 (PORT per c
 
 - Cambia IP, Discord, trailer: `src/config/site.js`.
 - Mappa: modifica `places` in `src/config/content.js`. Se il server ha BlueMap/Dynmap, metti il suo URL in `liveMapUrl` e la pagina Mappa la incorpora.
+
+## Accesso Bedrock
+
+Geyser (2.12) non usa la porta 25565: i giocatori Bedrock entrano dal servizio di signaling. L'indirizzo è in `src/config/site.js` (`bedrock.host`, `port`, `joinUrl`). Dopo un riavvio del server controlla nel log la riga `Players can join at https://....wdn.gg`: se l'indirizzo è cambiato, aggiornalo lì, `npm run build` e `docker compose up -d --build`.

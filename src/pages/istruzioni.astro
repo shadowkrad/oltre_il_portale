@@ -36,6 +36,9 @@ const guides = [
                     <button class="mc-btn sm" data-copy={site.host}>📋 Copia</button>
                   </div>
                 )}
+                {s.joinLink && (
+                  <a class="mc-btn primary" href={bedrock.joinUrl} target="_blank" rel="noopener noreferrer">📱 Apri la pagina di accesso Bedrock</a>
+                )}
                 {s.bedrock && (
                   <div>
                     <code class="code-ip">{bedrock.host}</code>
