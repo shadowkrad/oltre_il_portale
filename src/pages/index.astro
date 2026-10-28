@@ -22,6 +22,13 @@ const video = site.videoUrl;
       <span class="ip">{address}</span>
       <button class="mc-btn" data-copy={address}>📋 Copia IP</button>
     </div>
+    {site.bedrock.enabled && (
+      <p class="platforms">
+        <span class="pill">☕ Java · {address}</span>
+        <span class="pill">📱 Bedrock · porta {site.bedrock.port}</span>
+        <span class="pill">Windows · Xbox · PlayStation · Switch · Android · iOS</span>
+      </p>
+    )}
     <div class="cta-row">
       <a href="/istruzioni/" class="mc-btn primary lg">▶ Come Entrare</a>
       <a href="/mappa/" class="mc-btn lg">🗺 Mappa del Reame</a>

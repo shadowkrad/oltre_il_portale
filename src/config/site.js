@@ -5,8 +5,10 @@ export const site = {
   host: 'minecraft.guidelli.net',
   port: 25565,
   version: '26.3',
-  edition: 'Java Edition',
+  edition: 'Java & Bedrock',
   discord: 'https://discord.gg',
+  // Accesso da Bedrock (Windows, console, mobile). Da TheatronMC: Bedrock in ascolto su UDP 25565 (come il Java).
+  bedrock: { enabled: true, host: 'minecraft.guidelli.net', port: 25565, versions: '26.40–26.60' },
   // Link YouTube (embed) / Vimeo / MP4 del trailer. Vuoto = sezione nascosta.
   videoUrl: '',
   // URL di BlueMap/Dynmap se il server ne espone una: la pagina Mappa la incorpora al posto della mappa illustrata.

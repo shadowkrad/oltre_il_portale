@@ -1,39 +1,64 @@
 ---
 import Base from '../layouts/Base.astro';
 import { address, site } from '../config/site.js';
-import { steps, faq } from '../config/content.js';
+import { steps, bedrockSteps, faq } from '../config/content.js';
+
+const bedrock = site.bedrock;
+const bedrockAddress = `${bedrock.host}:${bedrock.port}`;
+const guides = [
+  { id: 'java', label: '☕ Java Edition', steps, version: `versione ${site.version}` },
+  ...(bedrock.enabled ? [{ id: 'bedrock', label: '📱 Bedrock', steps: bedrockSteps, version: `Windows · mobile · console · versioni ${bedrock.versions}` }] : []),
+];
 ---
-<Base title="Come Entrare" description={`Guida passo-passo per entrare in Oltre il Portale: aggiungi ${address} a Minecraft Java.`}>
+<Base title="Come Entrare" description={`Guida per entrare in Oltre il Portale da Java e da Bedrock: ${address}.`}>
   <header class="page-title container">
     <h1>Come Entrare</h1>
-    <p>Quattro passi e sei dentro. Server <strong>{site.edition}</strong>, versione {site.version}.</p>
+    <p>Il server è <strong>multipiattaforma</strong>: scegli la tua versione di Minecraft.</p>
   </header>
 
-  <section class="section container">
-    <div class="steps">
-      {steps.map((s) => (
-        <div class="panel step">
-          <div>
-            <h3>{s.title}</h3>
-            <p set:html={s.text} />
-            {s.ip && (
+  <section class="section container" data-tabs>
+    <div class="tabs" role="tablist">
+      {guides.map((g) => <button class="mc-btn" role="tab" data-tab={g.id} aria-selected="false">{g.label}</button>)}
+    </div>
+
+    {guides.map((g) => (
+      <div class="pane" data-pane={g.id} role="tabpanel">
+        <p class="center" style="color:var(--ink-dim)">{g.version}</p>
+        <div class="steps">
+          {g.steps.map((s) => (
+            <div class="panel step">
               <div>
-                <code class="code-ip">{site.host}</code>
-                <button class="mc-btn sm" data-copy={site.host}>📋 Copia</button>
+                <h3>{s.title}</h3>
+                <p set:html={s.text} />
+                {s.ip && (
+                  <div>
+                    <code class="code-ip">{site.host}</code>
+                    <button class="mc-btn sm" data-copy={site.host}>📋 Copia</button>
+                  </div>
+                )}
+                {s.bedrock && (
+                  <div>
+                    <code class="code-ip">{bedrock.host}</code>
+                    <button class="mc-btn sm" data-copy={bedrock.host}>📋 Indirizzo</button>
+                    <br />
+                    <code class="code-ip">{bedrock.port}</code>
+                    <button class="mc-btn sm" data-copy={String(bedrock.port)}>📋 Porta</button>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
+          ))}
+        </div>
+        <div class="panel center mt">
+          <h2>Fatto? Ci vediamo dall'altra parte.</h2>
+          <p>Stato attuale: <strong data-bind="state">…</strong> · <span data-bind="players">–</span> giocatori online</p>
+          <div class="cta-row">
+            <button class="mc-btn primary lg" data-copy={g.id === 'bedrock' ? bedrockAddress : address}>📋 Copia {g.id === 'bedrock' ? bedrockAddress : address}</button>
+            <a class="mc-btn lg" href="/regolamento/">Leggi il regolamento</a>
           </div>
         </div>
-      ))}
-    </div>
-    <div class="panel center mt">
-      <h2>Fatto? Ci vediamo dall'altra parte.</h2>
-      <p>Stato attuale: <strong data-bind="state">…</strong> · <span data-bind="players">–</span> giocatori online</p>
-      <div class="cta-row">
-        <button class="mc-btn primary lg" data-copy={address}>📋 Copia {address}</button>
-        <a class="mc-btn lg" href="/regolamento/">Leggi il regolamento</a>
       </div>
-    </div>
+    ))}
   </section>
 
   <section class="section container">

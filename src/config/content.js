@@ -67,8 +67,17 @@ export const steps = [
   { title: 'Varca il Portale!', text: 'Premi <strong>Fatto</strong>, seleziona il server dalla lista ed entra. Cerca un committente in città: è da lì che parte l\'avventura.' },
 ];
 
+export const bedrockSteps = [
+  { title: 'Apri Minecraft Bedrock', text: 'Funziona su Windows, Android, iOS, Xbox, PlayStation e Switch. Servono versioni Bedrock comprese fra <strong>26.40 e 26.60</strong>: aggiorna il gioco se non riesci a entrare.' },
+  { title: 'Gioca → Server → Aggiungi server', text: 'Dalla schermata <strong>Gioca</strong> apri la scheda <strong>Server</strong> e premi <strong>Aggiungi server</strong>.' },
+  { title: 'Inserisci indirizzo e porta', text: 'Nome a piacere, poi indirizzo e porta qui sotto. La porta è la stessa del Java (25565): Bedrock la usa in UDP.', bedrock: true },
+  { title: 'Entra nel mondo', text: 'Salva, seleziona il server dalla lista e premi <strong>Entra</strong>. Il tuo nome sarà quello del tuo account Microsoft/Xbox.' },
+];
+
 export const faq = [
-  { q: 'Serve Minecraft originale?', a: 'Sì, serve Minecraft Java Edition acquistato. Bedrock (console e mobile) non è supportato.' },
+  { q: 'Serve Minecraft originale?', a: 'Sì. Puoi giocare con Minecraft Java Edition (PC) oppure con Bedrock (Windows, mobile e console): il server è multipiattaforma.' },
+  { q: 'Da console non trovo il pulsante per aggiungere un server', a: 'Su Xbox, PlayStation e Switch il gioco non permette di inserire un indirizzo a mano. Serve un servizio ponte come BedrockConnect, che si imposta cambiando i DNS della console: se ti serve aiuto scrivici su Discord.' },
+  { q: 'Giocatori Java e Bedrock giocano insieme?', a: 'Sì, nello stesso mondo, con le stesse città, incarichi e ferrovie. Alcune cose possono comportarsi in modo leggermente diverso su Bedrock.' },
   { q: 'Come funzionano gli incarichi?', a: 'In ogni città c\'è un abitante con un nome sopra la testa. Per 1 smeraldo vende un libro con la missione. Porta l\'oggetto richiesto (sigillo, reliquia o lettera) e ricevi smeraldi o diamanti.' },
   { q: 'Come si va nel Sottosopra?', a: 'Attraverso un portale del Nether, come in Minecraft. Le coordinate coincidono con la superficie: se sopra c\'è una città, sotto c\'è la sua versione corrotta.' },
   { q: 'Come si usa il treno?', a: 'Le città collegate hanno una stazione di legno. Cerca i binari fuori dall\'abitato e seguili: li percorrono le locomotive a vapore.' },
