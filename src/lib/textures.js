@@ -25,9 +25,9 @@ export function texture(seed, palette, size = 16) {
 }
 
 export const textures = {
-  dirt: texture(7, ['#866043', '#79553a', '#6b4a32', '#8f6a4b', '#5e412b']),
-  stone: texture(13, ['#7d7d7d', '#8b8b8b', '#707070', '#969696', '#656565']),
-  grass: texture(21, ['#5d9b3a', '#55912f', '#68a844', '#4c8329', '#73b34c']),
-  planks: texture(5, ['#a07a47', '#9a7340', '#ab834e', '#8f6a39', '#b58b55']),
+  dirt: texture(7, ['#4a3a33', '#41322c', '#38302b', '#54423a', '#2f2824']),
+  stone: texture(13, ['#5a5a60', '#66666d', '#4e4e54', '#707078', '#45454b']),
+  grass: texture(21, ['#5a1414', '#4a1010', '#6a1a1a', '#3d0d0d', '#781e1e']),
+  planks: texture(5, ['#4a3426', '#44301f', '#52392a', '#3b2a1e', '#5a4130']),
   obsidian: texture(31, ['#150d23', '#1c1230', '#0f0919', '#241740', '#120b1f']),
 };

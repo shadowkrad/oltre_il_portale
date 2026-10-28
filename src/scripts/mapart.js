@@ -24,9 +24,9 @@ function fbm(x, y, s) {
 }
 
 const PAL = {
-  deep: [28, 62, 130], water: [40, 90, 170], shallow: [64, 130, 200], sand: [222, 205, 150],
-  grass: [100, 160, 60], forest: [58, 120, 44], hill: [128, 128, 120], rock: [160, 160, 156], snow: [240, 244, 250],
-  pit: [20, 10, 36], rift: [160, 70, 230],
+  deep: [10, 14, 28], water: [16, 24, 44], shallow: [26, 40, 62], sand: [120, 108, 90],
+  grass: [70, 84, 48], forest: [38, 54, 36], hill: [84, 78, 80], rock: [110, 106, 108], snow: [170, 168, 176],
+  pit: [8, 2, 6], rift: [230, 50, 50],
 };
 
 export function drawRealmMap(canvas, places) {
@@ -83,7 +83,7 @@ export function drawRealmMap(canvas, places) {
         if (d > r) continue;
         const px = Math.round(b.x) + x, py = Math.round(b.y) + y;
         if (px < 0 || py < 0 || px >= N || py >= N) continue;
-        const c = b.type === 'rift' || d > r - 2.2 ? (b.type === 'rift' ? PAL.rift : [70, 30, 120]) : PAL.pit;
+        const c = b.type === 'rift' || d > r - 2.2 ? (b.type === 'rift' ? PAL.rift : [110, 20, 24]) : PAL.pit;
         const i = (py * N + px) * 4;
         img.data[i] = c[0]; img.data[i + 1] = c[1]; img.data[i + 2] = c[2];
       }

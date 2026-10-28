@@ -29,8 +29,8 @@ function noise1d(len, spacing, seed) {
 }
 
 const SKY = {
-  day: [hex('#5aa0ff'), hex('#8ec1ff'), hex('#cfe6ff')],
-  night: [hex('#05071c'), hex('#0e1440'), hex('#1d2a5e')],
+  day: [hex('#1d1822'), hex('#3a2733'), hex('#6b3a3c')],
+  night: [hex('#030106'), hex('#0e0510'), hex('#2a0812')],
 };
 
 export function initLandscape(canvas) {
@@ -41,6 +41,8 @@ export function initLandscape(canvas) {
   let target = 0;
   const clouds = [];
   const sparks = [];
+  const spores = [];
+  let flash = 0;
 
   function build() {
     cols = Math.ceil(innerWidth / PX);
@@ -71,9 +73,14 @@ export function initLandscape(canvas) {
       clouds.push({ x: r() * cols, y: 6 + r() * rows * 0.25, w: 18 + Math.floor(r() * 24), speed: 0.012 + r() * 0.02, seed: i * 7 });
     }
 
+    spores.length = 0;
+    for (let i = 0; i < cols / 2; i++) {
+      spores.push({ x: r() * cols, y: r() * rows, vy: 0.012 + r() * 0.05, ph: r() * 6, big: r() < 0.15 });
+    }
+
     layers = [false, true].map((isNight) => ({
-      far: paintLand(far, [hex('#7d93ad'), hex('#6d849f')], isNight, 3),
-      mid: paintLand(mid, [hex('#5f7f6a'), hex('#547560')], isNight, 5),
+      far: paintLand(far, [hex('#3b2c3f'), hex('#33263a')], isNight, 3),
+      mid: paintLand(mid, [hex('#2c2a2c'), hex('#262428')], isNight, 5),
       near: paintNear(isNight),
     }));
   }
@@ -86,7 +93,7 @@ export function initLandscape(canvas) {
   }
 
   function tint(color, isNight, amount = 0.62) {
-    return isNight ? mix(color, [8, 10, 40], amount) : color;
+    return isNight ? mix(color, [10, 3, 14], amount) : mix(color, [30, 22, 34], 0.45);
   }
 
   function paintLand(heights, palette, isNight, seed) {
@@ -107,9 +114,9 @@ export function initLandscape(canvas) {
     const c = offscreen();
     const g = c.getContext('2d');
     const r = rng(77);
-    const grass = [hex('#5d9b3a'), hex('#55912f'), hex('#68a844')];
-    const dirt = [hex('#866043'), hex('#79553a'), hex('#6b4a32')];
-    const stone = [hex('#7d7d7d'), hex('#707070'), hex('#8b8b8b')];
+    const grass = [hex('#4b5a30'), hex('#424f2a'), hex('#566338')];
+    const dirt = [hex('#5a4236'), hex('#4e382e'), hex('#46332b')];
+    const stone = [hex('#55555b'), hex('#4b4b51'), hex('#5f5f66')];
     for (let x = 0; x < cols; x++) {
       const top = groundY[x];
       for (let y = top; y < rows; y++) {
@@ -121,27 +128,27 @@ export function initLandscape(canvas) {
         g.fillRect(x, y, 1, 1);
       }
     }
-    // alberi di quercia
+    // alberi secchi e spogli
     for (const t of trees) {
       const tr = rng(t.seed);
       const base = groundY[t.x];
-      const log = tint(hex('#6b4f2a'), isNight, 0.55);
-      g.fillStyle = css(log);
-      g.fillRect(t.x, base - t.h, 2, t.h);
-      const leaves = [hex('#2f7a2a'), hex('#3a8c32'), hex('#276b23')];
-      const top = base - t.h;
-      for (let ly = -3; ly <= 1; ly++) {
-        const half = ly < 0 ? 3 : 2;
-        for (let lx = -half; lx <= half + 1; lx++) {
-          if (Math.abs(lx) === half && ly === -3 && tr() > 0.5) continue;
-          g.fillStyle = css(tint(leaves[Math.floor(tr() * 3)], isNight, 0.55));
-          g.fillRect(t.x + lx, top + ly - 1, 1, 1);
+      g.fillStyle = css(tint(hex('#3b2a26'), isNight, 0.5));
+      g.fillRect(t.x, base - t.h - 3, 2, t.h + 3);
+      for (const dir of [-1, 1]) {
+        let bx = t.x + (dir < 0 ? 0 : 1);
+        let by = base - t.h - 1 - Math.floor(tr() * 3);
+        const len = 3 + Math.floor(tr() * 4);
+        for (let i = 0; i < len; i++) {
+          bx += dir;
+          if (i % 2 === 0) by -= 1;
+          g.fillRect(bx, by, 1, 1);
+          if (i === len - 1 && tr() > 0.4) g.fillRect(bx, by - 1, 1, 1);
         }
       }
     }
     // cornice di ossidiana
-    const ob = tint(hex('#1a1030'), isNight, 0.2);
-    const ob2 = tint(hex('#2a1850'), isNight, 0.2);
+    const ob = tint(hex('#14090f'), isNight, 0.2);
+    const ob2 = tint(hex('#241018'), isNight, 0.2);
     g.fillStyle = css(ob);
     const { x, y, w, h } = portal;
     const blocks = [];
@@ -152,7 +159,7 @@ export function initLandscape(canvas) {
     for (const [bx, by] of blocks) {
       g.fillStyle = css((bx + by) % 2 ? ob : ob2);
       g.fillRect(x + bx * B, y + by * B, B, B);
-      g.fillStyle = css(tint(hex('#3b2470'), isNight, 0.2));
+      g.fillStyle = css(tint(hex('#7a1a1a'), isNight, 0.2));
       g.fillRect(x + bx * B + 1, y + by * B + 1, 1, 1);
     }
     return c;
@@ -167,6 +174,10 @@ export function initLandscape(canvas) {
       // bande a gradini, come il cielo di Minecraft
       ctx.fillStyle = css(mix(d, n, night));
       ctx.fillRect(0, y, cols, 1);
+    }
+    if (flash > 0.02) {
+      ctx.fillStyle = `rgba(255,70,60,${flash * 0.28})`;
+      ctx.fillRect(0, 0, cols, rows);
     }
   }
 
@@ -184,27 +195,57 @@ export function initLandscape(canvas) {
 
   function drawCelestial() {
     const x = Math.floor(cols * 0.18);
-    const y = Math.floor(rows * 0.14);
-    ctx.globalAlpha = 1 - night;
-    ctx.fillStyle = '#fff6b0';
+    const y = Math.floor(rows * 0.16);
+    // sole malato e velato di giorno, luna rossa di notte
+    ctx.globalAlpha = (1 - night) * 0.55;
+    ctx.fillStyle = '#b98a6a';
     ctx.fillRect(x - 5, y - 5, 10, 10);
-    ctx.fillStyle = '#ffe14d';
+    ctx.fillStyle = '#d9a984';
     ctx.fillRect(x - 3, y - 3, 6, 6);
     ctx.globalAlpha = night;
-    ctx.fillStyle = '#e6ecff';
+    ctx.fillStyle = '#6e1216';
+    ctx.fillRect(x - 5, y - 5, 10, 10);
+    ctx.fillStyle = '#a8231f';
     ctx.fillRect(x - 4, y - 4, 8, 8);
-    ctx.fillStyle = '#bfc8ee';
+    ctx.fillStyle = '#5a0d12';
     ctx.fillRect(x - 2, y - 3, 2, 2);
     ctx.fillRect(x + 1, y + 1, 2, 2);
     ctx.globalAlpha = 1;
+  }
+
+  function drawFog(t) {
+    const col = mix([140, 100, 115], [70, 14, 30], night);
+    const base = Math.floor(rows * 0.7);
+    const step = Math.max(2, Math.floor(rows * 0.035));
+    for (let i = 0; i < 8; i++) {
+      const off = reduce ? 0 : Math.sin(t / 4200 + i * 1.3) * 8;
+      ctx.fillStyle = `rgba(${col[0]},${col[1]},${col[2]},${0.05 + i * 0.012})`;
+      ctx.fillRect(off - 12, base + i * step, cols + 24, step);
+    }
+  }
+
+  function drawSpores(t) {
+    ctx.fillStyle = `rgba(255,${170 - night * 60},${150 - night * 70},${0.28 + night * 0.25})`;
+    for (const sp of spores) {
+      if (!reduce) {
+        sp.y -= sp.vy;
+        sp.x += Math.sin(t / 1600 + sp.ph) * 0.06;
+        if (sp.y < -2) {
+          sp.y = rows + 2;
+          sp.x = Math.random() * cols;
+        }
+      }
+      const sz = sp.big ? 2 : 1;
+      ctx.fillRect(Math.floor(sp.x), Math.floor(sp.y), sz, sz);
+    }
   }
 
   function drawClouds(t) {
     for (const c of clouds) {
       const x = ((c.x + (reduce ? 0 : t * c.speed)) % (cols + c.w * 2)) - c.w;
       const r = rng(c.seed);
-      ctx.fillStyle = css(mix([255, 255, 255], [70, 80, 130], night));
-      ctx.globalAlpha = 0.85 - night * 0.35;
+      ctx.fillStyle = css(mix([95, 70, 85], [28, 12, 30], night));
+      ctx.globalAlpha = 0.9;
       for (let i = 0; i < c.w; i += 4) {
         const hh = 2 + Math.floor(r() * 3);
         ctx.fillRect(Math.floor(x + i), Math.floor(c.y - hh), 4, hh + 2);
@@ -228,13 +269,13 @@ export function initLandscape(canvas) {
     const iy = y + B;
     // alone pixelato
     for (let k = 3; k >= 1; k--) {
-      ctx.fillStyle = `rgba(160,70,255,${0.05 + night * 0.04})`;
+      ctx.fillStyle = `rgba(255,40,40,${0.05 + night * 0.05 + flash * 0.05})`;
       ctx.fillRect(x - k * 2, y - k * 2, portal.w + k * 4, portal.h + k * 4);
     }
     for (let py = 0; py < 3 * B; py++) {
       for (let pxl = 0; pxl < 2 * B; pxl++) {
         const v = 0.5 + 0.5 * Math.sin((pxl * 0.9 + py * 0.55) + t / 380) * Math.cos(py * 0.4 - t / 520);
-        const c = mix(hex('#5b1ea8'), hex('#c77dff'), v);
+        const c = mix(hex('#4a0610'), hex('#ff3b3b'), v);
         ctx.fillStyle = css(c);
         ctx.fillRect(ix + pxl, iy + py, 1, 1);
       }
@@ -250,13 +291,15 @@ export function initLandscape(canvas) {
         sparks.splice(i, 1);
         continue;
       }
-      ctx.fillStyle = `rgba(222,170,255,${s.life})`;
+      ctx.fillStyle = `rgba(255,140,120,${s.life})`;
       ctx.fillRect(Math.floor(s.x), Math.floor(s.y), 1, 1);
     }
   }
 
   function frame(t) {
     if (!layers || cols < 1 || rows < 1) return;
+    if (!reduce && Math.random() < 0.004) flash = 1;
+    flash *= 0.86;
     night += (target - night) * 0.06;
     if (Math.abs(target - night) < 0.003) night = target;
     drawSky();
@@ -265,8 +308,10 @@ export function initLandscape(canvas) {
     drawLayer('far');
     drawClouds(t);
     drawLayer('mid');
+    drawFog(t);
     drawLayer('near');
     drawPortal(t);
+    drawSpores(t);
   }
 
   let last = 0;
@@ -291,8 +336,7 @@ export function initLandscape(canvas) {
       return null;
     }
   })();
-  const h = new Date().getHours();
-  target = night = stored ? (stored === 'night' ? 1 : 0) : h >= 19 || h < 6 ? 1 : 0;
+  target = night = stored ? (stored === 'night' ? 1 : 0) : 1;
   document.documentElement.dataset.theme = target ? 'night' : 'day';
 
   document.querySelectorAll('[data-daynight]').forEach((btn) =>
