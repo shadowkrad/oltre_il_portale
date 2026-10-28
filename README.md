@@ -51,7 +51,7 @@ docker compose up -d --build
 ```
 
 Il sito sarà immediatamente accessibile su:
-👉 **[http://localhost:8080](http://localhost:8080)**
+👉 **[http://localhost:3010](http://localhost:3010)**
 
 ### 2. Fermare il contenitore
 ```bash
@@ -61,11 +61,11 @@ docker compose down
 ### 3. Personalizzare la porta
 Puoi modificare la porta esposta creando o modificando il file `.env`:
 ```env
-PORT=80
+PORT=3010
 ```
 oppure eseguendo:
 ```bash
-PORT=80 docker compose up -d
+PORT=3010 docker compose up -d
 ```
 
 ---
@@ -77,12 +77,12 @@ Dato che il frontend è composto da standard HTML5, CSS3 moderno e JavaScript mo
 ### Con Python:
 ```bash
 cd public
-python -m http.server 8080
+python -m http.server 3010
 ```
 
 ### Con Node.js (npx):
 ```bash
-npx serve public -p 8080
+npx serve public -p 3010
 ```
 
 ---
@@ -98,7 +98,7 @@ window.PORTAL_CONFIG = {
 };
 ```
 > Puoi anche testare al volo un video semplicemente aprendo il browser con:
-> `http://localhost:8080/?video=https://www.youtube.com/watch?v=TUO_VIDEO_ID`
+> `http://localhost:3010/?video=https://www.youtube.com/watch?v=TUO_VIDEO_ID`
 
 ### 2. Modificare l'Indirizzo o la Porta del Server Minecraft
 Nel file [`public/js/server-status.js`](file:///c:/Users/Administrator/Google/oltre_il_portale/public/js/server-status.js#L6-L12):

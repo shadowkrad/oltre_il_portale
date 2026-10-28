@@ -7,7 +7,7 @@ services:
     container_name: oltre_il_portale_web
     restart: unless-stopped
     ports:
-      - "${PORT:-8080}:80"
+      - "${PORT:-3010}:80"
     environment:
       - NODE_ENV=production
     volumes:
