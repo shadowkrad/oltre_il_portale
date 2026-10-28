@@ -1,0 +1,18 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: oltre-il-portale-web:latest
+    container_name: oltre_il_portale_web
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8080}:80"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      # Optional live reload of static assets during development:
+      - ./public:/usr/share/nginx/html:ro
+    labels:
+      - "project=oltre_il_portale"
+      - "minecraft.server=minecraft.guidelli.net"
