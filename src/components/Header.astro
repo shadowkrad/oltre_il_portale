@@ -1,0 +1,27 @@
+---
+import { site, nav } from '../config/site.js';
+const path = Astro.url.pathname;
+const isActive = (href) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+<header class="site-header">
+  <nav class="nav container" aria-label="Principale">
+    <a href="/" class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-name">OLTRE IL PORTALE<small>MINECRAFT FANTASY</small></span>
+    </a>
+    <ul class="nav-links">
+      {nav.map((n) => (
+        <li><a href={n.href} aria-current={isActive(n.href) ? 'page' : undefined}>{n.label}</a></li>
+      ))}
+    </ul>
+    <div class="nav-tools">
+      <span class="pill" title="Giocatori online">
+        <span class="dot-status"></span>
+        <span class="pill-label" data-bind="state">…</span>
+        <span><span data-bind="players">–</span>/<span data-bind="max">–</span></span>
+      </span>
+      <button class="mc-btn sm" data-daynight title="Giorno / Notte" aria-label="Alterna giorno e notte">☀/☾</button>
+      <button class="mc-btn sm menu-btn" data-menu-toggle aria-expanded="false" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+</header>

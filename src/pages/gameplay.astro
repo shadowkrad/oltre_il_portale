@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import { pillars } from '../config/content.js';
+
+const details = {
+  faglie: 'Periodicamente si aprono varchi instabili tra Mondo Superiore e Sottomondo: spedizioni ad alto rischio con finestre temporali limitate e ricompense incalcolabili.',
+  combattimento: 'Meccaniche d\'azione raffinate: schivate, parate tempestive, combo d\'armi e abilità ad albero che trasformano ogni boss in una sfida tecnica.',
+  mestieri: 'Forgia, Alchimia del Vuoto, Esplorazione Abissale, Ingegneria Arcana. Ogni giocatore sviluppa talenti unici che alimentano un\'economia cooperativa.',
+  eventi: 'Eclissi di sangue, piogge di meteoriti abissali e invasioni di bestie del Sottomondo nelle terre abitate. Il mondo richiede cooperazione tra gilde.',
+  fairplay: 'Ogni oggetto, potere o rango è conquistabile unicamente giocando, esplorando e combattendo con i propri compagni.',
+  performance: 'Hardware dedicato, 20 TPS stabili, ottimizzazioni del rendering e protezioni avanzate per un\'esperienza fluida anche nelle battaglie più concitate.',
+};
+---
+<Base title="Gameplay" description="I sei pilastri di Oltre il Portale: faglie dimensionali, combattimento, mestieri, eventi, fair play.">
+  <header class="page-title container">
+    <h1>Gameplay Dinamico</h1>
+    <p>Dimentica il survival statico: ogni elemento del mondo reagisce alle scelte della community.</p>
+  </header>
+  <section class="section container">
+    <div class="grid">
+      {pillars.map((p) => {
+        const id = p.href.split('#')[1];
+        return (
+          <article class="panel card reveal" id={id}>
+            <h3><span class="ico">{p.icon}</span>{p.title}</h3>
+            <p>{details[id]}</p>
+          </article>
+        );
+      })}
+    </div>
+    <div class="center mt"><a class="mc-btn primary lg" href="/istruzioni/">▶ Inizia l'avventura</a></div>
+  </section>
+</Base>

@@ -1,7 +1,7 @@
 .git
-.gitignore
+node_modules
+dist
+.astro
 .env
-.DS_Store
-Thumbs.db
+old
 *.md
-docker-compose*.override.yml

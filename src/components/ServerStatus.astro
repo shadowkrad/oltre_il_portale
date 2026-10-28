@@ -1,0 +1,25 @@
+---
+import { address, site } from '../config/site.js';
+---
+<div class="panel" aria-live="polite">
+  <div class="stats">
+    <div class="stat panel stone">
+      <b data-bind="state">…</b><span>Stato</span>
+    </div>
+    <div class="stat panel stone">
+      <b><span data-bind="players">–</span><small style="font-size:.6em"> / <span data-bind="max">–</span></small></b><span>Giocatori</span>
+      <div class="bar"><i data-bind="bar"></i></div>
+    </div>
+    <div class="stat panel stone">
+      <b><span data-bind="ping">--</span> ms</b><span>Ping</span>
+    </div>
+    <div class="stat panel stone">
+      <b data-bind="version" style="font-size:.9rem">{site.version}</b><span>{site.edition}</span>
+    </div>
+  </div>
+  <div class="motd mt" data-bind="motd">Connessione al portale…</div>
+  <p class="mt center" style="color:var(--ink-dim);margin-bottom:0">
+    <span data-bind="note">Verifica in corso…</span> · prossimo controllo tra <strong data-bind="countdown">{site.refreshSeconds}s</strong>
+    <button class="mc-btn sm" data-refresh style="margin-left:.6rem">↻ Aggiorna</button>
+  </p>
+</div>

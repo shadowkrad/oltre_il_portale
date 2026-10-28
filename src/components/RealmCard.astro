@@ -1,0 +1,13 @@
+---
+const { realm } = Astro.props;
+const under = realm.id === 'underworld';
+---
+<article class:list={['panel', 'card', 'realm-card', { under }]}>
+  <h3><span class="ico">{under ? '🌋' : '🌳'}</span>{realm.name}</h3>
+  <div class="danger" aria-label={`Pericolo ${realm.danger} su 5`}>
+    Pericolo: {[1, 2, 3, 4, 5].map((n) => <i class:list={{ on: n <= realm.danger }}></i>)}
+  </div>
+  <p>{realm.desc}</p>
+  <ul class="checks">{realm.points.map((p) => <li>{p}</li>)}</ul>
+  <slot />
+</article>

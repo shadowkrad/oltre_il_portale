@@ -1,0 +1,20 @@
+---
+import { site, nav, address } from '../config/site.js';
+---
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <strong class="brand-name" style="font-family:var(--font-title);font-size:.75rem">OLTRE IL PORTALE</strong>
+      <p>{address}</p>
+      <button class="mc-btn sm" data-copy={address}>Copia IP</button>
+    </div>
+    <ul>
+      {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+    </ul>
+    <ul>
+      <li><a href={site.discord} target="_blank" rel="noopener noreferrer">Discord</a></li>
+      <li><a href="https://github.com/shadowkrad/oltre_il_portale" target="_blank" rel="noopener noreferrer">Codice sorgente</a></li>
+    </ul>
+  </div>
+  <p class="footer-note">© 2026 Oltre il Portale · Non affiliato con Mojang Studios o Microsoft.</p>
+</footer>

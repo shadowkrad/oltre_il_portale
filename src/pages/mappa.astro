@@ -1,0 +1,109 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../config/site.js';
+import { places } from '../config/content.js';
+
+const icons = { portal: '🌀', city: '🏰', rift: '⚡', ruin: '🗿', abyss: '🕳️' };
+const labels = { portal: 'Portale', city: 'Città', rift: 'Faglie', ruin: 'Rovine', abyss: 'Abisso' };
+const live = site.liveMapUrl;
+---
+<Base title="Mappa" description="La mappa interattiva del reame di Oltre il Portale.">
+  <header class="page-title container">
+    <h1>Mappa del Reame</h1>
+    <p>Trascina per muoverti, rotella per zoomare, clicca i luoghi per i dettagli.</p>
+  </header>
+
+  <section class="section container">
+    {live ? (
+      <iframe class="map-embed" src={live} title="Mappa live del server" loading="lazy"></iframe>
+    ) : (
+      <div class="map-layout">
+        <div>
+          <div id="map" data-places={JSON.stringify(places)} data-icons={JSON.stringify(icons)}></div>
+          <div class="coords">X: <span id="cx">–</span> · Z: <span id="cz">–</span> · mappa illustrativa</div>
+        </div>
+        <aside class="panel map-side" aria-label="Luoghi">
+          <div class="filters" id="filters">
+            {Object.entries(labels).map(([k, v]) => (
+              <button type="button" data-type={k} aria-pressed="true">{icons[k]} {v}</button>
+            ))}
+          </div>
+          {places.map((p) => (
+            <button type="button" class="place-btn" data-place={p.id} data-type={p.type}>
+              <span>{icons[p.type]}</span><span>{p.name}</span>
+            </button>
+          ))}
+        </aside>
+      </div>
+    )}
+  </section>
+
+  <script>
+      import L from 'leaflet';
+      import 'leaflet/dist/leaflet.css';
+      import { drawRealmMap } from '../scripts/mapart.js';
+
+      const el = document.getElementById('map');
+      if (el) init(el);
+
+      function init(el) {
+      const places = JSON.parse(el.dataset.places);
+      const icons = JSON.parse(el.dataset.icons);
+      const SIZE = 1000;
+      const bounds = [[0, 0], [SIZE, SIZE]];
+
+      const canvas = document.createElement('canvas');
+      drawRealmMap(canvas, places);
+
+      const map = L.map(el, { crs: L.CRS.Simple, minZoom: -1.5, maxZoom: 2, zoomSnap: 0.25, maxBounds: [[-100, -100], [SIZE + 100, SIZE + 100]], attributionControl: false });
+      L.imageOverlay(canvas.toDataURL(), bounds).addTo(map);
+      map.fitBounds(bounds);
+
+      // y della griglia cresce verso il basso, Leaflet verso l'alto
+      const toLatLng = (p) => [SIZE - p.y, p.x];
+      const markers = {};
+      for (const p of places) {
+        const icon = L.divIcon({
+          className: '',
+          html: `<div class="map-pin ${p.type === 'portal' ? 'pulse' : ''}">${icons[p.type]}</div>`,
+          iconSize: [28, 28],
+          iconAnchor: [14, 14],
+        });
+        const m = L.marker(toLatLng(p), { icon, title: p.name }).addTo(map);
+        const box = document.createElement('div');
+        const b = document.createElement('b');
+        b.textContent = p.name;
+        const t = document.createElement('span');
+        t.textContent = p.text;
+        box.append(b, t);
+        m.bindPopup(box, { maxWidth: 240 });
+        markers[p.id] = m;
+      }
+
+      const btns = [...document.querySelectorAll('.place-btn')];
+      btns.forEach((b) =>
+        b.addEventListener('click', () => {
+          const p = places.find((x) => x.id === b.dataset.place);
+          btns.forEach((o) => o.classList.toggle('active', o === b));
+          map.flyTo(toLatLng(p), 1, { duration: 0.8 });
+          markers[p.id].openPopup();
+        }),
+      );
+
+      document.querySelectorAll('#filters button').forEach((f) =>
+        f.addEventListener('click', () => {
+          const on = f.getAttribute('aria-pressed') !== 'true';
+          f.setAttribute('aria-pressed', String(on));
+          const type = f.dataset.type;
+          places.filter((p) => p.type === type).forEach((p) => (on ? markers[p.id].addTo(map) : markers[p.id].remove()));
+          btns.filter((b) => b.dataset.type === type).forEach((b) => (b.style.display = on ? '' : 'none'));
+        }),
+      );
+
+      map.on('mousemove', (e) => {
+        document.getElementById('cx').textContent = Math.round(e.latlng.lng - SIZE / 2) * 4;
+        document.getElementById('cz').textContent = Math.round(SIZE / 2 - e.latlng.lat) * 4;
+      });
+      }
+  </script>
+</Base>

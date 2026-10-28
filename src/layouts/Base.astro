@@ -1,0 +1,45 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../config/site.js';
+import { textures } from '../lib/textures.js';
+
+const { title, description = `${site.name}: server Minecraft fantasy con Terre Emerse e Sottomondo. IP ${site.host}:${site.port}` } = Astro.props;
+const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.tagline}`;
+const vars = Object.entries(textures).map(([k, v]) => `--tex-${k}:${v}`).join(';');
+const clientConfig = { host: site.host, port: site.port, version: site.version, edition: site.edition, refreshSeconds: site.refreshSeconds };
+---
+<!doctype html>
+<html lang="it" data-theme="day" data-status="loading" style={vars}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/og-preview.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet" />
+    <script is:inline define:vars={{ clientConfig }}>
+      window.__SITE__ = clientConfig;
+    </script>
+  </head>
+  <body>
+    <canvas id="landscape" aria-hidden="true"></canvas>
+    <Header />
+    <main id="main"><slot /></main>
+    <Footer />
+    <div id="toast" class="toast" role="status" aria-live="polite">✓ <span data-toast-text></span></div>
+    <script>
+      import { initLandscape } from '../scripts/landscape.js';
+      import '../scripts/ui.js';
+      import '../scripts/status.js';
+      initLandscape(document.getElementById('landscape'));
+    </script>
+  </body>
+</html>

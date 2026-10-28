@@ -1,0 +1,104 @@
+---
+import Base from '../layouts/Base.astro';
+import ServerStatus from '../components/ServerStatus.astro';
+import RealmCard from '../components/RealmCard.astro';
+import { site, address } from '../config/site.js';
+import { pillars, realms, steps } from '../config/content.js';
+
+const slides = [
+  { icon: '🌀', title: 'Due mondi, una Frattura', text: 'Le Terre Emerse in superficie, il Sottomondo nell\'abisso. Una spaccatura arcana li ha divisi: scegli dove forgiare la tua leggenda.', href: '/mondi/', cta: 'Esplora i Due Regni' },
+  ...pillars.slice(0, 4).map((p) => ({ ...p, cta: 'Scopri di più' })),
+  { icon: '🗺️', title: 'Mappa interattiva', text: 'Trova il Portale, le città, le faglie dimensionali e il Cratere dell\'Abisso. Clicca i luoghi per scoprirne i segreti.', href: '/mappa/', cta: 'Apri la mappa' },
+];
+const phrases = ['Esplora le Terre Emerse.', 'Sfida il Sottomondo.', 'Costruisci la tua gilda.', 'Nessun pay-to-win. Mai.'];
+const video = site.videoUrl;
+---
+<Base>
+  <section class="hero container">
+    <h1 class="logo">OLTRE<span>IL PORTALE</span></h1>
+    <div class="splash">Server Minecraft Fantasy!</div>
+    <div class="typed-wrap" data-typewriter={JSON.stringify(phrases)} aria-label={phrases.join(' ')}></div>
+    <div class="ip-box">
+      <span class="ip">{address}</span>
+      <button class="mc-btn" data-copy={address}>📋 Copia IP</button>
+    </div>
+    <div class="cta-row">
+      <a href="/istruzioni/" class="mc-btn primary lg">▶ Come Entrare</a>
+      <a href="/mappa/" class="mc-btn lg">🗺 Mappa del Reame</a>
+    </div>
+  </section>
+
+  <section class="section container reveal">
+    <ServerStatus />
+  </section>
+
+  <section class="section container reveal">
+    <div class="section-head">
+      <h2>Cosa ti aspetta</h2>
+      <p>Un survival che reagisce alle scelte della community e al passare del tempo.</p>
+    </div>
+    <div class="panel showcase" data-showcase>
+      <div class="slides">
+        {slides.map((s) => (
+          <div class="slide" data-slide>
+            <div class="big-icon">{s.icon}</div>
+            <div>
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+              <a class="mc-btn sm" href={s.href}>{s.cta} →</a>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="showcase-nav">
+        <button class="mc-btn sm" data-prev aria-label="Precedente">◀</button>
+        <div class="dots" data-dots></div>
+        <button class="mc-btn sm" data-next aria-label="Successivo">▶</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container reveal">
+    <div class="section-head">
+      <h2>I Due Regni</h2>
+    </div>
+    <div class="grid">
+      {realms.map((r) => (
+        <RealmCard realm={r}><a class="more" href={`/mondi/#${r.id}`}>Scopri di più →</a></RealmCard>
+      ))}
+    </div>
+  </section>
+
+  <section class="section container reveal">
+    <div class="panel center">
+      <h2>Il reame in una mappa</h2>
+      <canvas id="map-thumb" class="map-thumb" aria-label="Anteprima della mappa del reame"></canvas>
+      <p class="mt">Luoghi, città, faglie dimensionali e l'ingresso al Sottomondo.</p>
+      <a class="mc-btn primary" href="/mappa/">Apri la mappa interattiva</a>
+    </div>
+  </section>
+
+  {video && (
+    <section class="section container reveal">
+      <div class="section-head"><h2>Guarda il mondo in azione</h2></div>
+      <iframe class="video" src={video} title="Trailer Oltre il Portale" allowfullscreen loading="lazy"></iframe>
+    </section>
+  )}
+
+  <section class="section container reveal">
+    <div class="panel center">
+      <h2>Pronto a varcare il Portale?</h2>
+      <p>Bastano {steps.length} passi per entrare nel server. Ti guidiamo noi.</p>
+      <div class="cta-row">
+        <a class="mc-btn primary lg" href="/istruzioni/">▶ Segui la guida</a>
+        <a class="mc-btn lg" href={site.discord} target="_blank" rel="noopener noreferrer">💬 Discord</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import { drawRealmMap } from '../scripts/mapart.js';
+    import { places } from '../config/content.js';
+    drawRealmMap(document.getElementById('map-thumb'), places);
+  </script>
+</Base>

@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import { rules } from '../config/content.js';
+---
+<Base title="Regolamento" description="Il regolamento ufficiale di Oltre il Portale.">
+  <header class="page-title container">
+    <h1>Regolamento</h1>
+    <p>Poche regole, valide per tutti. Giocando le accetti.</p>
+  </header>
+  <section class="section container">
+    <div class="panel">
+      <ol class="rules-list">
+        {rules.map(([t, d]) => <li><strong>{t}</strong>{d}</li>)}
+      </ol>
+    </div>
+  </section>
+</Base>

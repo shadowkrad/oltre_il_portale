@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import { address, site } from '../config/site.js';
+import { steps, faq } from '../config/content.js';
+---
+<Base title="Come Entrare" description={`Guida passo-passo per entrare in Oltre il Portale: aggiungi ${address} a Minecraft Java.`}>
+  <header class="page-title container">
+    <h1>Come Entrare</h1>
+    <p>Quattro passi e sei dentro. Server <strong>{site.edition}</strong>, versione {site.version}.</p>
+  </header>
+
+  <section class="section container">
+    <div class="steps">
+      {steps.map((s) => (
+        <div class="panel step">
+          <div>
+            <h3>{s.title}</h3>
+            <p set:html={s.text} />
+            {s.ip && (
+              <div>
+                <code class="code-ip">{site.host}</code>
+                <button class="mc-btn sm" data-copy={site.host}>📋 Copia</button>
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="panel center mt">
+      <h2>Fatto? Ci vediamo dall'altra parte.</h2>
+      <p>Stato attuale: <strong data-bind="state">…</strong> · <span data-bind="players">–</span> giocatori online</p>
+      <div class="cta-row">
+        <button class="mc-btn primary lg" data-copy={address}>📋 Copia {address}</button>
+        <a class="mc-btn lg" href="/regolamento/">Leggi il regolamento</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head"><h2>Domande frequenti</h2></div>
+    {faq.map((f) => (
+      <details class="panel faq">
+        <summary>{f.q}</summary>
+        <p>{f.a}</p>
+      </details>
+    ))}
+    <p class="center mt">Hai ancora dubbi? <a href={site.discord} target="_blank" rel="noopener noreferrer">Scrivici su Discord</a>.</p>
+  </section>
+</Base>
