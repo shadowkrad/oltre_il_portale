@@ -10,7 +10,7 @@ export const site = {
   // Link YouTube (embed) / Vimeo / MP4 del trailer. Vuoto = sezione nascosta.
   videoUrl: '',
   // URL di BlueMap/Dynmap se il server ne espone una: la pagina Mappa la incorpora al posto della mappa illustrata.
-  liveMapUrl: '',
+  liveMapUrl: 'http://10.10.1.248:8123',
   refreshSeconds: 60,
 };
 
