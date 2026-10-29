@@ -16,6 +16,7 @@ const live = site.liveMapUrl;
   <section class="section container">
     {live ? (
       <iframe class="map-embed" src={live} title="Mappa live del server" loading="lazy"></iframe>
+      <p class="center mt"><a class="mc-btn" href={live} target="_blank" rel="noopener noreferrer">⛶ Apri la mappa a schermo intero</a></p>
     ) : (
       <div class="map-layout">
         <div>

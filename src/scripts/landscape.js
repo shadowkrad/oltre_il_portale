@@ -1,5 +1,5 @@
 // Paesaggio pixel-art animato (giorno/notte) disegnato su un canvas a bassa risoluzione.
-const PX = 5; // dimensione di un "pixel" sullo schermo
+let PX = 5; // dimensione di un "pixel" sullo schermo (4 sui telefoni)
 const B = 5; // dimensione di un blocco del portale, in pixel del canvas
 
 const hex = (h) => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
@@ -37,6 +37,7 @@ export function initLandscape(canvas) {
   const ctx = canvas.getContext('2d');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let cols, rows, layers, groundY, portal, trees;
+  let built = { w: 0, h: 0 };
   let night = 0;
   let target = 0;
   const clouds = [];
@@ -45,6 +46,8 @@ export function initLandscape(canvas) {
   let flash = 0;
 
   function build() {
+    PX = innerWidth < 600 ? 4 : 5;
+    built = { w: innerWidth, h: innerHeight };
     cols = Math.ceil(innerWidth / PX);
     rows = Math.ceil(innerHeight / PX);
     if (cols < 1 || rows < 1) return;
@@ -56,7 +59,7 @@ export function initLandscape(canvas) {
     const mid = noise1d(cols, 22, 29).map((v) => Math.round(rows * (0.62 + v * 0.12)));
     groundY = noise1d(cols, 18, 53).map((v) => Math.round(rows * (0.8 + v * 0.05)));
 
-    const px = Math.floor(cols * (cols > 120 ? 0.78 : 0.5));
+    const px = cols > 120 ? Math.floor(cols * 0.78) : Math.max(4, cols - 4 * B - 6);
     const pw = 4 * B;
     const flat = groundY[px];
     for (let x = px - 8; x < px + 8 + pw; x++) if (x >= 0 && x < cols) groundY[x] = flat;
@@ -325,6 +328,8 @@ export function initLandscape(canvas) {
 
   build();
   addEventListener('resize', () => {
+    // sui telefoni la barra del browser cambia l'altezza mentre si scorre: non rifare il paesaggio per questo
+    if (innerWidth === built.w && Math.abs(innerHeight - built.h) < 160) return;
     build();
     frame(performance.now());
   });
