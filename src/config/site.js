@@ -12,7 +12,8 @@ export const site = {
   // Aggiorna qui host e joinUrl (la porta e' quella mostrata dalla pagina di accesso, finora 443).
   bedrock: { enabled: true, host: 'glowingcat.wdn.gg', port: 443, joinUrl: 'https://glowingcat.wdn.gg', versions: '26.40–26.60' },
   // Link YouTube (embed) / Vimeo / MP4 del trailer. Vuoto = sezione nascosta.
-  videoUrl: '',
+  videoUrl: 'https://www.youtube-nocookie.com/embed/NX_Ump_KAc4',
+  videoWatchUrl: 'https://youtu.be/NX_Ump_KAc4',
   // URL di BlueMap/Dynmap se il server ne espone una: la pagina Mappa la incorpora al posto della mappa illustrata.
   liveMapUrl: 'http://10.10.1.248:8123',
   refreshSeconds: 60,

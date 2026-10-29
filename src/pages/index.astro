@@ -87,8 +87,9 @@ const video = site.videoUrl;
 
   {video && (
     <section class="section container reveal">
-      <div class="section-head"><h2>Guarda il mondo in azione</h2></div>
-      <iframe class="video" src={video} title="Trailer Oltre il Portale" allowfullscreen loading="lazy"></iframe>
+      <div class="section-head"><h2>Il video ufficiale</h2><p>La canzone di Oltre il Portale: salta dentro!</p></div>
+      <iframe class="video" src={video} title="Video ufficiale Oltre il Portale" allow="accelerometer; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+      <p class="center mt"><a href={site.videoWatchUrl} target="_blank" rel="noopener noreferrer">Guardalo su YouTube</a></p>
     </section>
   )}
 
