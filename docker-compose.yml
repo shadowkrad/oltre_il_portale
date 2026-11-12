@@ -6,3 +6,15 @@ services:
     restart: unless-stopped
     ports:
       - "${PORT:-3010}:80"
+
+  # «Il muro scrive»: inoltra i messaggi del sito alla chat di gioco via RCON (vedi README).
+  # Senza RCON_PASSWORD il servizio parte ma risponde "non configurato": il sito resta in piedi.
+  api:
+    build: ./api
+    image: oltre-il-portale-api:latest
+    container_name: oltre_il_portale_api
+    restart: unless-stopped
+    environment:
+      RCON_HOST: ${RCON_HOST:-10.10.1.248}
+      RCON_PORT: ${RCON_PORT:-25575}
+      RCON_PASSWORD: ${RCON_PASSWORD:-}

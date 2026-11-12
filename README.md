@@ -33,3 +33,24 @@ docker compose up -d --build   # produzione su http://localhost:3010 (PORT per c
 ## Accesso Bedrock
 
 Geyser (2.12) non usa la porta 25565: i giocatori Bedrock entrano dal servizio di signaling. L'indirizzo è in `src/config/site.js` (`bedrock.host`, `port`, `joinUrl`). Dopo un riavvio del server controlla nel log la riga `Players can join at https://....wdn.gg`: se l'indirizzo è cambiato, aggiornalo lì, `npm run build` e `docker compose up -d --build`.
+
+## «Il muro scrive»: dal sito alla chat di gioco
+
+Il muro di lucine nella pagina Sottosopra manda il messaggio (solo lettere A-Z, max 24, un messaggio ogni 30 s per persona, 12 al minuto in totale, filtro parole) al servizio `api/`, che lo ripete in gioco con `tellraw` via **RCON**.
+
+1. In `server.properties` del server Minecraft (poi riavvia):
+   ```
+   enable-rcon=true
+   rcon.port=25575
+   rcon.password=UNA_PASSWORD_LUNGA
+   ```
+   **Non aprire mai la porta 25575 su internet o sul router**: deve restare raggiungibile solo dalla rete interna.
+2. Sul server del sito crea un file `.env` accanto a `docker-compose.yml` (vedi `.env.example`):
+   ```
+   RCON_HOST=10.10.1.248
+   RCON_PORT=25575
+   RCON_PASSWORD=la_stessa_password
+   ```
+3. `docker compose up -d --build`. Senza `RCON_PASSWORD` il servizio risponde «non configurato» e il sito resta in piedi.
+
+In sviluppo: `RCON_PASSWORD=... node api/server.js` (porta 3055); Astro inoltra `/api` a quella porta.

@@ -396,3 +396,8 @@ html[data-upside='1'] .only-upside { display: block; }
   .brand-name { font-size: 0.6rem; }
   .pill { padding: 0.25rem 0.45rem; }
 }
+
+.bw-status { min-height: 1.4rem; text-align: center; margin: 0.6rem 0 0; font-size: 1.2rem; color: var(--ink-dim); }
+.bw-status[data-ok='0'] { color: #ff8a7a; }
+.bw-status[data-ok='1'] { color: #9be28a; }
+.bw-note { text-align: center; color: var(--ink-dim); font-size: 1.05rem; margin: 0.2rem 0 0; }
