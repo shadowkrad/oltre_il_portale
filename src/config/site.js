@@ -15,7 +15,7 @@ export const site = {
   videoUrl: 'https://www.youtube-nocookie.com/embed/NX_Ump_KAc4',
   videoWatchUrl: 'https://youtu.be/NX_Ump_KAc4',
   // URL di BlueMap/Dynmap se il server ne espone una: la pagina Mappa la incorpora al posto della mappa illustrata.
-  liveMapUrl: 'http://10.10.1.248:8123',
+  liveMapUrl: 'https://mappa.guidelli.net',
   refreshSeconds: 60,
 };
 
