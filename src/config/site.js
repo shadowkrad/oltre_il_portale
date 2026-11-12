@@ -31,6 +31,7 @@ export const nav = [
   { href: '/', label: 'Home' },
   { href: '/istruzioni/', label: 'Come Entrare' },
   { href: '/mondi/', label: 'Le Dimensioni' },
+  { href: '/sottosopra/', label: 'Sottosopra' },
   { href: '/gameplay/', label: 'Gameplay' },
   { href: '/mappa/', label: 'Mappa' },
   { href: '/regolamento/', label: 'Regolamento' },

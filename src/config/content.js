@@ -105,3 +105,29 @@ export const places = [
   { id: 'rovine', name: 'Rovine dei Primi', type: 'ruin', x: 560, y: 150, text: 'Megaliti e templi in rovina per le spedizioni archeologiche.' },
   { id: 'abisso', name: 'Cratere dell\'Abisso', type: 'abyss', x: 400, y: 860, text: 'Un cratere vulcanico: da qui si scende verso il Sottosopra.' },
 ];
+
+export const sottosopraSegnali = [
+  { icon: '👥', title: 'Il gemello', text: 'Ogni città, fiume e miniera ha il suo doppio nel Sottosopra, esattamente alle stesse coordinate.' },
+  { icon: '🌿', title: 'Tutto marcisce', text: 'Le costruzioni cadono in rovina, ricoperte da liane che sembrano vive.' },
+  { icon: '🔥', title: 'Lava al posto dell’acqua', text: 'Dove sopra scorre un fiume, sotto scorre lava.' },
+  { icon: '🌫️', title: 'Cenere nell’aria', text: 'Il cielo è scuro, le spore non smettono di cadere e gli spawner del Nether presidiano il buio.' },
+  { icon: '🚂', title: 'Il treno fantasma', text: 'Corre sulle stesse linee dei vivi. Nessuno ha mai visto il macchinista.' },
+  { icon: '🕰️', title: 'L’ora ferma', text: 'Oltre il vuoto, nella Dimensione X, c’è un orologio fermo alle 4:44.' },
+];
+
+export const sottosopraDiario = [
+  ['Giorno 1', 'Il portale ci ha lasciati passare. Troppo facilmente.'],
+  ['Giorno 2', 'Le torce tremano anche senza vento. Marta dice che è solo il mio nervosismo.'],
+  ['Giorno 4', 'Questa è la nostra città. Le stesse strade, la stessa piazza. Ma le finestre sono buie e coperte di liane.'],
+  ['Giorno 5', 'Ho sentito il treno. Qui non c’è nessun treno. Eppure.'],
+  ['Giorno 6', 'Marta non è più accanto a me. Le luci sul muro hanno cominciato a brillare. Sembrano lettere.'],
+];
+
+export const sottosopraConsigli = [
+  'Segna le tue coordinate prima di scendere: sono le stesse della superficie.',
+  'Non scavare alla cieca: sotto, dove c’era l’acqua, c’è la lava.',
+  'L’acqua evapora nel Nether: porta pozioni di resistenza al fuoco.',
+  'Non andare da solo. Fai squadra: nel buio le voci aiutano.',
+  'Torce e blocchi da costruzione sempre in tasca.',
+  'Se senti un treno alle 4:44, non salire.',
+];

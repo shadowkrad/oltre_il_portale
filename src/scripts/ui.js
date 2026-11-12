@@ -144,3 +144,23 @@ document.querySelectorAll('[data-count]').forEach((el) => {
   });
   io.observe(el);
 });
+
+// Sottosopra: capovolge il paesaggio e intensifica l'atmosfera
+const flashEl = document.getElementById('flash');
+function setUpside(on) {
+  document.documentElement.dataset.upside = on ? '1' : '0';
+  try {
+    localStorage.setItem('opi-upside', on ? '1' : '0');
+  } catch {}
+  document.querySelectorAll('[data-upside-toggle]').forEach((b) => b.setAttribute('aria-pressed', String(on)));
+  if (flashEl) {
+    flashEl.classList.remove('go');
+    void flashEl.offsetWidth;
+    flashEl.classList.add('go');
+  }
+}
+document.querySelectorAll('[data-upside-toggle]').forEach((b) => {
+  b.setAttribute('aria-pressed', String(document.documentElement.dataset.upside === '1'));
+  b.addEventListener('click', () => setUpside(document.documentElement.dataset.upside !== '1'));
+});
+addEventListener('opi-upside', (e) => setUpside(e.detail));

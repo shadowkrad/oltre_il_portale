@@ -25,6 +25,9 @@ const clientConfig = { host: site.host, port: site.port, version: site.version, 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet" />
+    <script is:inline>
+      try { if (localStorage.getItem('opi-upside') === '1') document.documentElement.dataset.upside = '1'; } catch (e) {}
+    </script>
     <script is:inline define:vars={{ clientConfig }}>
       window.__SITE__ = clientConfig;
     </script>
@@ -34,11 +37,13 @@ const clientConfig = { host: site.host, port: site.port, version: site.version, 
     <Header />
     <main id="main"><slot /></main>
     <Footer />
+    <div id="flash" aria-hidden="true"></div>
     <div id="toast" class="toast" role="status" aria-live="polite">✓ <span data-toast-text></span></div>
     <script>
       import { initLandscape } from '../scripts/landscape.js';
       import '../scripts/ui.js';
       import '../scripts/status.js';
+      import '../scripts/bulbs.js';
       initLandscape(document.getElementById('landscape'));
     </script>
   </body>

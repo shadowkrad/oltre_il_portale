@@ -231,7 +231,7 @@ export function initLandscape(canvas) {
     ctx.fillStyle = `rgba(255,${170 - night * 60},${150 - night * 70},${0.28 + night * 0.25})`;
     for (const sp of spores) {
       if (!reduce) {
-        sp.y -= sp.vy;
+        sp.y -= sp.vy * (document.documentElement.dataset.upside === '1' ? 1.8 : 1);
         sp.x += Math.sin(t / 1600 + sp.ph) * 0.06;
         if (sp.y < -2) {
           sp.y = rows + 2;
@@ -301,7 +301,8 @@ export function initLandscape(canvas) {
 
   function frame(t) {
     if (!layers || cols < 1 || rows < 1) return;
-    if (!reduce && Math.random() < 0.004) flash = 1;
+    const upside = document.documentElement.dataset.upside === '1';
+    if (!reduce && Math.random() < (upside ? 0.012 : 0.004)) flash = 1;
     flash *= 0.86;
     night += (target - night) * 0.06;
     if (Math.abs(target - night) < 0.003) night = target;

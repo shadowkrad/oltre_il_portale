@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import BulbWall from '../components/BulbWall.astro';
+import { sottosopraSegnali, sottosopraDiario, sottosopraConsigli } from '../config/content.js';
+---
+<Base title="Il Sottosopra" description="Sotto ogni città ce n'è un'altra. Il Sottosopra di Oltre il Portale: il mondo specchio, il treno fantasma e un'avventura che sa di Stranger Things.">
+  <header class="page-title container">
+    <h1 class="flicker">Il Sottosopra</h1>
+    <p>Sotto ogni città, ce n'è un'altra.</p>
+    <p class="badge-line"><span class="pill">📼 Un'avventura che sa di Stranger Things</span></p>
+  </header>
+
+  <section class="section container reveal">
+    <div class="panel dark">
+      <h2>Non è un altro mondo. È <em>questo</em>, ma al contrario.</h2>
+      <p>Gli stessi chunk, le stesse strade, le stesse piazze: tutto ciò che hai costruito di sopra esiste anche sotto, alle stesse coordinate. Ma qualcosa è andato storto. L'aria è piena di cenere, i fiumi bruciano e le case sembrano ricordarsi di te.</p>
+      <p class="dim">Oltre la soglia le regole cambiano. Prima di scendere, leggi cosa sappiamo.</p>
+    </div>
+  </section>
+
+  <section class="section container reveal">
+    <div class="section-head"><h2>I segnali</h2><p>Chi è tornato racconta sempre le stesse cose.</p></div>
+    <div class="grid">
+      {sottosopraSegnali.map((s) => (
+        <article class="panel card dark">
+          <h3><span class="ico">{s.icon}</span>{s.title}</h3>
+          <p>{s.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section container reveal">
+    <div class="section-head"><h2>Qualcuno ci sta scrivendo</h2><p>Le luci sul muro si accendono da sole. Prova a rispondere.</p></div>
+    <BulbWall form messages={['BENVENUTO', 'NON FIDARTI DEL PORTALE', 'SIAMO QUI SOTTO', 'NON GUARDARE INDIETRO']} />
+    <p class="center dim mt">Non sai cosa scrivere? Prova con <strong>CORRI</strong>.</p>
+  </section>
+
+  <section class="section container reveal">
+    <div class="section-head"><h2>Diario di un esploratore</h2><p>Racconto di fantasia, ritrovato nel Sottosopra.</p></div>
+    <div class="diary">
+      {sottosopraDiario.map(([day, text]) => (
+        <div class="panel dark entry"><h3>{day}</h3><p>{text}</p></div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section container reveal">
+    <div class="section-head"><h2>Come sopravvivere</h2></div>
+    <div class="panel dark">
+      <ul class="checks">
+        {sottosopraConsigli.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section container reveal">
+    <div class="panel center dark">
+      <h2>Sei pronto a scendere?</h2>
+      <p>Il portale è aperto. Basta un portale del Nether e le tue coordinate non cambiano: cambia tutto il resto.</p>
+      <div class="cta-row">
+        <a class="mc-btn primary lg" href="/istruzioni/">▶ Come entrare</a>
+        <a class="mc-btn lg" href="/mappa/#sottosopra">🗺 Mappa del Sottosopra</a>
+        <button class="mc-btn lg" data-upside-toggle aria-pressed="false">🙃 Capovolgi il sito</button>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,27 @@
+---
+// Muro di lucine con le lettere: si accendono una alla volta per scrivere un messaggio dal Sottosopra.
+const { messages = [], form = false } = Astro.props;
+const rows = ['ABCDEFGHI', 'JKLMNOPQR', 'STUVWXYZ'];
+const colors = ['#e8463c', '#3aa0ff', '#ffd24a', '#58c75a', '#d86bff'];
+let n = 0;
+---
+<div class="bulbwall" data-bulbwall data-messages={JSON.stringify(messages)}>
+  {rows.map((row) => (
+    <div class="bw-row" aria-hidden="true">
+      {[...row].map((ch) => (
+        <span class="bw-cell" data-ch={ch}>
+          <i class="bw-bulb" style={`--c:${colors[n++ % colors.length]}`}></i>
+          <b>{ch}</b>
+        </span>
+      ))}
+    </div>
+  ))}
+  <p class="bw-caption" data-caption role="status" aria-live="polite"></p>
+  {form && (
+    <form class="bw-form" data-bulbform autocomplete="off">
+      <label class="sr-only" for="bw-input">Scrivi un messaggio</label>
+      <input id="bw-input" name="msg" type="text" maxlength="24" placeholder="Scrivi qualcosa… (prova: CORRI)" />
+      <button class="mc-btn sm primary" type="submit">Invia</button>
+    </form>
+  )}
+</div>
