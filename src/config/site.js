@@ -16,6 +16,12 @@ export const site = {
   videoWatchUrl: 'https://youtu.be/NX_Ump_KAc4',
   // URL di BlueMap/Dynmap se il server ne espone una: la pagina Mappa la incorpora al posto della mappa illustrata.
   liveMapUrl: 'https://mappa.guidelli.net',
+  // Una scheda per ogni mondo di Dynmap (nomi presi da /up/configuration della mappa).
+  liveMaps: [
+    { id: 'terre', label: '🌳 Terre Emerse', world: 'world', map: 'surface' },
+    { id: 'sottosopra', label: '🌋 Sottosopra', world: 'world_nether', map: 'nether' },
+    { id: 'dimensione-x', label: '🕰️ Dimensione X', world: 'world_the_end', map: 'the_end' },
+  ],
   refreshSeconds: 60,
 };
 

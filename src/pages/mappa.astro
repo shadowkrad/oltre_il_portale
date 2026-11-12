@@ -5,23 +5,38 @@ import { places } from '../config/content.js';
 
 const icons = { portal: '🌀', city: '🏰', rift: '⚡', ruin: '🗿', abyss: '🕳️' };
 const labels = { portal: 'Portale', city: 'Città', rift: 'Torri e cripte', ruin: 'Rovine', abyss: 'Abisso' };
+
 const live = site.liveMapUrl;
+const liveTabs = live
+  ? site.liveMaps.map((m) => ({ id: m.id, label: m.label, url: `${live}/?worldname=${m.world}&mapname=${m.map}` }))
+  : [];
+const tabs = [...liveTabs, { id: 'illustrata', label: '🗺️ Mappa illustrata' }];
 ---
-<Base title="Mappa" description="La mappa interattiva del reame di Oltre il Portale.">
+<Base title="Mappa" description="La mappa del reame di Oltre il Portale: dal vivo e illustrata.">
   <header class="page-title container">
     <h1>Mappa del Reame</h1>
-    <p>Trascina per muoverti, rotella per zoomare, clicca i luoghi per i dettagli.</p>
+    <p>{live ? 'Scegli la dimensione: le mappe dal vivo mostrano il mondo così com’è adesso.' : 'Trascina per muoverti, rotella per zoomare, clicca i luoghi per i dettagli.'}</p>
   </header>
 
-  <section class="section container">
-    {live ? (
-      <iframe class="map-embed" src={live} title="Mappa live del server" loading="lazy"></iframe>
-      <p class="center mt"><a class="mc-btn" href={live} target="_blank" rel="noopener noreferrer">⛶ Apri la mappa a schermo intero</a></p>
-    ) : (
+  <section class="section container" data-tabs>
+    {tabs.length > 1 && (
+      <div class="tabs" role="tablist">
+        {tabs.map((t) => <button class="mc-btn" role="tab" data-tab={t.id} aria-selected="false">{t.label}</button>)}
+      </div>
+    )}
+
+    {liveTabs.map((t) => (
+      <div class="pane" data-pane={t.id} role="tabpanel">
+        <iframe class="map-embed" src={t.url} title={`Mappa live: ${t.label}`} loading="lazy"></iframe>
+        <p class="center mt"><a class="mc-btn" href={t.url} target="_blank" rel="noopener noreferrer">⛶ Apri la mappa a schermo intero</a></p>
+      </div>
+    ))}
+
+    <div class="pane" data-pane="illustrata" role="tabpanel">
       <div class="map-layout">
         <div>
           <div id="map" data-places={JSON.stringify(places)} data-icons={JSON.stringify(icons)}></div>
-          <div class="coords">X: <span id="cx">–</span> · Z: <span id="cz">–</span> · mappa illustrativa</div>
+          <div class="coords">X: <span id="cx">–</span> · Z: <span id="cz">–</span> · mappa illustrativa, non è il mondo reale</div>
         </div>
         <aside class="panel map-side" aria-label="Luoghi">
           <div class="filters" id="filters">
@@ -36,18 +51,29 @@ const live = site.liveMapUrl;
           ))}
         </aside>
       </div>
-    )}
+    </div>
   </section>
 
   <script>
-      import L from 'leaflet';
-      import 'leaflet/dist/leaflet.css';
-      import { drawRealmMap } from '../scripts/mapart.js';
+    import L from 'leaflet';
+    import 'leaflet/dist/leaflet.css';
+    import { drawRealmMap } from '../scripts/mapart.js';
 
-      const el = document.getElementById('map');
-      if (el) init(el);
+    const el = document.getElementById('map');
+    const built = el ? init(el) : null;
 
-      function init(el) {
+    // La mappa illustrata nasce dentro una scheda nascosta: va ricalibrata quando diventa visibile.
+    function refit() {
+      if (!built) return;
+      setTimeout(() => {
+        built.map.invalidateSize();
+        built.map.fitBounds(built.bounds);
+      }, 60);
+    }
+    document.querySelectorAll('[data-tab="illustrata"]').forEach((b) => b.addEventListener('click', refit));
+    if (location.hash === '#illustrata') refit();
+
+    function init(el) {
       const places = JSON.parse(el.dataset.places);
       const icons = JSON.parse(el.dataset.icons);
       const SIZE = 1000;
@@ -105,6 +131,8 @@ const live = site.liveMapUrl;
         document.getElementById('cx').textContent = Math.round(e.latlng.lng - SIZE / 2) * 4;
         document.getElementById('cz').textContent = Math.round(SIZE / 2 - e.latlng.lat) * 4;
       });
-      }
+
+      return { map, bounds };
+    }
   </script>
 </Base>
