@@ -7,11 +7,11 @@ Sito del server Minecraft **minecraft.guidelli.net:25565**: home-vetrina dinamic
 ```
 src/
   config/site.js      IP, porta, Discord, trailer, URL mappa live, menu
-  config/content.js   testi: pilastri, regni, passi, FAQ, regole, luoghi della mappa
-  pages/              una pagina per file (index, istruzioni, mondi, gameplay, mappa, regolamento)
+  config/content.js   testi: pilastri, dimensioni, passi, FAQ, regole, dossier del Sottosopra
+  pages/              una pagina per file (index, istruzioni, mondo, sottosopra, mappa, regolamento)
   components/         Header, Footer, ServerStatus, RealmCard
   layouts/Base.astro  scheletro comune + sfondo
-  scripts/            landscape (sfondo), status (live), ui, mapart (mappa)
+  scripts/            landscape (sfondo), status (live), ui, bulbs (muro di lucine)
   styles/global.css   stile Minecraft
 docker/nginx.conf, Dockerfile, docker-compose.yml
 ```
@@ -28,7 +28,7 @@ docker compose up -d --build   # produzione su http://localhost:3010 (PORT per c
 ## Personalizzazione
 
 - Cambia IP, Discord, trailer: `src/config/site.js`.
-- Mappa: modifica `places` in `src/config/content.js`. Se il server ha BlueMap/Dynmap, metti il suo URL in `liveMapUrl` e la pagina Mappa la incorpora.
+- Mappa: imposta l’indirizzo HTTPS di Dynmap in `liveMapUrl` e i mondi in `liveMaps` (`src/config/site.js`).
 
 ## Accesso Bedrock
 

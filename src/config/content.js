@@ -44,17 +44,17 @@ export const pillars = [
 
 export const realms = [
   {
-    id: 'overworld', name: 'Le Terre Emerse', short: 'Superficie', danger: 2,
+    id: 'overworld', name: 'Le Terre Emerse', short: 'Superficie', tag: 'Città murate, torri, vulcani e ferrovie.', danger: 2,
     desc: 'Il mondo di superficie: montagne, fiumi, vulcani e coste, con città murate, villaggi e campi coltivati. Fra una città e l\'altra, strade, ponti e ferrovie; fuori, torri, fortezze e cripte.',
     points: ['Città con mura, mercato e botteghe', 'Torri del Mago, fortezze e castelli in rovina', 'Vulcani, cascate e isole del tesoro'],
   },
   {
-    id: 'sottosopra', name: 'Il Sottosopra', short: 'Specchio', danger: 4,
+    id: 'sottosopra', name: 'Il Sottosopra', short: 'Specchio', tag: 'Lo specchio corrotto: lava, cenere e liane.', danger: 4,
     desc: 'Il Nether come specchio del mondo: ogni città, fiume e miniera ha il suo gemello corrotto, alle stesse coordinate. L\'acqua è lava, il legno è fungo e tutto cade lentamente in rovina.',
     points: ['Costruzioni in decadimento, coperte di liane', 'Lava al posto dell\'acqua, cenere nell\'aria', 'Il treno fantasma sulle linee dei vivi'],
   },
   {
-    id: 'dimensione-x', name: 'Dimensione X', short: 'Il Vuoto', danger: 5,
+    id: 'dimensione-x', name: 'Dimensione X', short: 'Il Vuoto', tag: 'Isole sospese nel vuoto dell’End.', danger: 5,
     desc: 'Isole sospese nel vuoto dell\'End, unite da ponti tentacolari di sculk. Al centro, la Cittadella di Vecna con la Camera del Grande Pendolo.',
     points: ['Cittadella di Vecna e Grande Pendolo', 'Bozzoli di sculk e obelischi d\'ombra', 'Cittadelle di purpur con shulker ed enderman'],
   },
@@ -95,16 +95,6 @@ export const rules = [
   ['Divertiti e coopera', 'Esplora, forgiati un nome e difendi il tuo gruppo nelle profondità.'],
 ];
 
-// Coordinate della mappa illustrata (usata solo se non c'è una mappa live): griglia 1000x1000, (0,0) in alto a sinistra.
-export const places = [
-  { id: 'spawn', name: 'Il Portale (Spawn)', type: 'portal', x: 500, y: 520, text: 'Punto di arrivo di ogni viaggiatore. Zona sicura, mercato e bacheca delle missioni.' },
-  { id: 'porto', name: 'Porto Alba', type: 'city', x: 270, y: 640, text: 'Città commerciale sulla costa occidentale: rotte carovaniere, stazione e committente di incarichi.' },
-  { id: 'rocca', name: 'Rocca di Brina', type: 'city', x: 720, y: 300, text: 'Città fortificata di montagna.' },
-  { id: 'faglia1', name: 'Torre del Mago', type: 'rift', x: 190, y: 330, text: 'Torre con un mago evocatore, streghe di guardia e un laboratorio di alchimia.' },
-  { id: 'faglia2', name: 'Cripta dell\'Osso', type: 'rift', x: 820, y: 700, text: 'Cripta con trappole, spawner e una reliquia nel forziere del tesoro.' },
-  { id: 'rovine', name: 'Rovine dei Primi', type: 'ruin', x: 560, y: 150, text: 'Megaliti e templi in rovina per le spedizioni archeologiche.' },
-  { id: 'abisso', name: 'Cratere dell\'Abisso', type: 'abyss', x: 400, y: 860, text: 'Un cratere vulcanico: da qui si scende verso il Sottosopra.' },
-];
 
 export const sottosopraSegnali = [
   { icon: '👥', title: 'Il gemello', text: 'Ogni città, fiume e miniera ha il suo doppio nel Sottosopra, esattamente alle stesse coordinate.' },

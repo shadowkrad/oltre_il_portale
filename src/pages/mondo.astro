@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import RealmCard from '../components/RealmCard.astro';
+import { realms, pillars } from '../config/content.js';
+
+const links = { overworld: ['/mappa/#terre', 'Vedi la mappa'], sottosopra: ['/sottosopra/', 'Entra nel Sottosopra'], 'dimensione-x': ['/mappa/#dimensione-x', 'Vedi la mappa'] };
+// Sottosopra e Dimensione X hanno già la loro scheda qui sopra
+const features = pillars.filter((p) => !['sottosopra', 'dimensione-x'].includes(p.id));
+---
+<Base title="Il Mondo" description="Tre dimensioni, città vive, incarichi, torri, cripte e ferrovie a vapore: cosa trovi in Oltre il Portale.">
+  <header class="page-title container">
+    <h1>Il Mondo</h1>
+    <p>Tre dimensioni, un solo territorio generato da una mappa vera e pieno di luoghi da scoprire.</p>
+  </header>
+
+  <section class="section container">
+    <div class="section-head"><h2>Le tre dimensioni</h2></div>
+    <div class="grid">
+      {realms.map((r) => (
+        <RealmCard realm={r}><a class="mc-btn sm primary" href={links[r.id][0]}>{links[r.id][1]}</a></RealmCard>
+      ))}
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head"><h2>Cosa trovi</h2></div>
+    <div class="grid">
+      {features.map((p) => (
+        <article class="panel card" id={p.id}>
+          <h3><span class="ico">{p.icon}</span>{p.title}</h3>
+          <p>{p.text}</p>
+          {p.bullets.length > 0 && (
+            <details class="more-info">
+              <summary>Dettagli</summary>
+              <ul class="checks">{p.bullets.map((b) => <li>{b}</li>)}</ul>
+            </details>
+          )}
+        </article>
+      ))}
+    </div>
+    <div class="center mt"><a class="mc-btn primary lg" href="/istruzioni/">▶ Come entrare</a></div>
+  </section>
+</Base>

@@ -30,9 +30,7 @@ export const address = `${site.host}:${site.port}`;
 export const nav = [
   { href: '/', label: 'Home' },
   { href: '/istruzioni/', label: 'Come Entrare' },
-  { href: '/mondi/', label: 'Le Dimensioni' },
+  { href: '/mondo/', label: 'Il Mondo' },
   { href: '/sottosopra/', label: 'Sottosopra' },
-  { href: '/gameplay/', label: 'Gameplay' },
   { href: '/mappa/', label: 'Mappa' },
-  { href: '/regolamento/', label: 'Regolamento' },
 ];

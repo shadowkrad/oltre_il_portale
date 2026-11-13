@@ -138,7 +138,7 @@ main { flex: 1; }
 @keyframes blink { 50% { opacity: 0.25; } }
 .menu-btn { display: none; }
 
-@media (max-width: 1180px) {
+@media (max-width: 960px) {
   .menu-btn { display: inline-flex; }
   .nav-links {
     display: none; position: absolute; left: 0; right: 0; top: 100%;
@@ -181,23 +181,6 @@ main { flex: 1; }
 .bar { height: 14px; background: #000; border: 3px solid #000; margin-top: 0.5rem; }
 .bar > i { display: block; height: 100%; width: 0; background: var(--green); transition: width 0.6s steps(10); }
 
-/* ---------- Vetrina ---------- */
-.showcase { position: relative; }
-.slides { position: relative; min-height: 270px; }
-.slide { position: absolute; inset: 0; display: grid; grid-template-columns: 120px 1fr; gap: 1.6rem; align-items: center; opacity: 0; visibility: hidden; transform: translateX(24px); transition: opacity 0.35s, transform 0.35s, visibility 0.35s; }
-.slide.active { opacity: 1; visibility: visible; transform: none; position: relative; }
-.slide .big-icon { font-size: 5rem; text-align: center; filter: drop-shadow(4px 4px 0 #000); }
-.slide h3 { font-size: clamp(0.9rem, 2.4vw, 1.2rem); color: var(--gold); }
-.slide p { font-size: 1.6rem; }
-.showcase-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.2rem; }
-.dots { display: flex; gap: 0.5rem; }
-.dot { width: 16px; height: 16px; background: #555; border: 3px solid #000; cursor: pointer; padding: 0; }
-.dot.active { background: var(--green); }
-@media (max-width: 640px) {
-  .slide { grid-template-columns: 1fr; text-align: center; gap: 0.4rem; }
-  .slide .big-icon { font-size: 3.4rem; }
-  .slides { min-height: 360px; }
-}
 
 /* ---------- Griglie e card ---------- */
 .grid { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
@@ -240,28 +223,7 @@ details.faq p { margin: 0.8rem 0 0; }
 .motd { background: #000; border: 3px solid #333; padding: 0.9rem 1rem; font-size: 1.5rem; min-height: 4.6rem; text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6); }
 
 /* ---------- Mappa ---------- */
-.map-layout { display: grid; grid-template-columns: 1fr 320px; gap: 1.2rem; }
-#map { height: min(70vh, 640px); min-height: 380px; background: #0c0610; border: 4px solid #000; }
-.map-side { display: flex; flex-direction: column; gap: 0.5rem; max-height: min(70vh, 640px); overflow: auto; }
-.place-btn { text-align: left; width: 100%; font-family: var(--font-body); font-size: 1.35rem; color: var(--ink); background: rgba(0, 0, 0, 0.45); border: 3px solid #000; padding: 0.5rem 0.7rem; cursor: pointer; display: flex; gap: 0.6rem; align-items: center; }
-.place-btn:hover, .place-btn.active { background: rgba(95, 193, 61, 0.35); }
-.filters { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.4rem; }
-.filters button { font-family: var(--font-title); font-size: 0.5rem; padding: 0.5rem; background: #333; color: #fff; border: 3px solid #000; cursor: pointer; }
-.filters button[aria-pressed='true'] { background: var(--green-dark); }
-.map-pin { font-size: 22px; line-height: 1; text-align: center; filter: drop-shadow(2px 2px 0 #000); transition: transform 0.1s; }
-.map-pin:hover { transform: scale(1.3); }
-.map-pin.pulse::after { content: ''; position: absolute; inset: -6px; border: 3px solid var(--purple); animation: ping 1.6s steps(6) infinite; }
-@keyframes ping { to { transform: scale(2); opacity: 0; } }
-.leaflet-image-layer { image-rendering: pixelated; }
-.leaflet-container { font-family: var(--font-body); font-size: 1.3rem; }
-.leaflet-popup-content-wrapper, .leaflet-popup-tip { background: #2a1d10; color: var(--ink); border: 3px solid #000; border-radius: 0; box-shadow: none; }
-.leaflet-popup-content { margin: 10px 14px; }
-.leaflet-popup-content b { font-family: var(--font-title); font-size: 0.65rem; color: var(--gold); display: block; margin-bottom: 0.4rem; line-height: 1.5; }
-.leaflet-popup-close-button { color: #fff !important; }
-.coords { font-family: var(--font-title); font-size: 0.55rem; color: #fff; text-shadow: 1px 1px 0 #000; margin-top: 0.6rem; }
 .map-embed { width: 100%; height: min(75vh, 700px); border: 4px solid #000; background: #000; }
-.map-thumb { width: 100%; max-height: 320px; object-fit: cover; border: 4px solid #000; }
-@media (max-width: 860px) { .map-layout { grid-template-columns: 1fr; } .map-side { max-height: none; flex-direction: row; flex-wrap: wrap; } .place-btn { width: auto; } }
 
 /* ---------- Video, toast, utilità ---------- */
 .video { aspect-ratio: 16 / 9; width: 100%; border: 4px solid #000; background: #000; }
@@ -327,13 +289,6 @@ body::after {
   .rules-list li { padding-left: 2.6rem; }
   .footer-grid { flex-direction: column; gap: 1.2rem; }
   .toast { width: calc(100% - 1.5rem); text-align: center; font-size: 1.15rem; }
-  .slide .big-icon { font-size: 3rem; }
-  #map { height: 58vh; min-height: 320px; }
-  .map-side { max-height: none; flex-direction: column; }
-  .place-btn { width: 100%; font-size: 1.2rem; }
-  .filters button { font-size: 0.5rem; padding: 0.6rem 0.5rem; }
-  .leaflet-popup-content { margin: 8px 10px; font-size: 1.15rem; }
-  .coords { font-size: 0.5rem; }
   .map-embed { height: 70vh; }
   .page-title { padding: 2rem 0 0.2rem; }
   .page-title p { font-size: 1.35rem; }
@@ -388,16 +343,17 @@ html[data-upside='1'] .only-upside { display: block; }
 }
 @media (prefers-reduced-motion: reduce) { .flicker, .warn { animation: none; } #flash.go { animation: none; opacity: 0.25; } }
 
-/* Intestazione con 7 voci: compatta fra 1181 e 1320 px */
-.brand-name { white-space: nowrap; }
-@media (min-width: 1181px) and (max-width: 1320px) {
-  .nav { gap: 0.6rem; }
-  .nav-links a { font-size: 0.52rem; padding: 0.5rem 0.4rem; }
-  .brand-name { font-size: 0.6rem; }
-  .pill { padding: 0.25rem 0.45rem; }
-}
 
 .bw-status { min-height: 1.4rem; text-align: center; margin: 0.6rem 0 0; font-size: 1.2rem; color: var(--ink-dim); }
 .bw-status[data-ok='0'] { color: #ff8a7a; }
 .bw-status[data-ok='1'] { color: #9be28a; }
 .bw-note { text-align: center; color: var(--ink-dim); font-size: 1.05rem; margin: 0.2rem 0 0; }
+
+/* Schede compatte con dettagli a scomparsa */
+details.more-info { margin-top: 0.6rem; }
+details.more-info summary { cursor: pointer; font-family: var(--font-title); font-size: 0.6rem; color: var(--green); }
+details.more-info[open] summary { margin-bottom: 0.6rem; }
+.tile { text-align: center; }
+.tile .ico { font-size: 2.4rem; display: block; margin-bottom: 0.4rem; filter: drop-shadow(3px 3px 0 #000); }
+.tile h3 { color: var(--gold); }
+.tile p { color: var(--ink-dim); }

@@ -83,37 +83,6 @@ document.querySelectorAll('[data-typewriter]').forEach((el) => {
   })();
 });
 
-// Vetrina a slide
-document.querySelectorAll('[data-showcase]').forEach((root) => {
-  const slides = [...root.querySelectorAll('[data-slide]')];
-  const dots = root.querySelector('[data-dots]');
-  let i = 0;
-  let timer;
-  slides.forEach((_, n) => {
-    const d = document.createElement('button');
-    d.className = 'dot';
-    d.setAttribute('aria-label', `Slide ${n + 1}`);
-    d.addEventListener('click', () => go(n, true));
-    dots.appendChild(d);
-  });
-  function go(n, user) {
-    i = (n + slides.length) % slides.length;
-    slides.forEach((s, k) => s.classList.toggle('active', k === i));
-    [...dots.children].forEach((d, k) => d.classList.toggle('active', k === i));
-    if (user) restart();
-  }
-  function restart() {
-    clearInterval(timer);
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(() => go(i + 1), 5500);
-  }
-  root.querySelector('[data-prev]')?.addEventListener('click', () => go(i - 1, true));
-  root.querySelector('[data-next]')?.addEventListener('click', () => go(i + 1, true));
-  root.addEventListener('mouseenter', () => clearInterval(timer));
-  root.addEventListener('mouseleave', restart);
-  go(0);
-  restart();
-});
-
 // Tab (le dimensioni)
 document.querySelectorAll('[data-tabs]').forEach((root) => {
   const btns = [...root.querySelectorAll('[data-tab]')];
@@ -126,23 +95,6 @@ document.querySelectorAll('[data-tabs]').forEach((root) => {
   btns.forEach((b) => b.addEventListener('click', () => select(b.dataset.tab)));
   const h = location.hash.slice(1);
   select(btns.some((b) => b.dataset.tab === h) ? h : btns[0].dataset.tab);
-});
-
-// Conta numeri (statistiche)
-document.querySelectorAll('[data-count]').forEach((el) => {
-  const end = Number(el.dataset.count);
-  const suffix = el.dataset.suffix || '';
-  const io = new IntersectionObserver((es) => {
-    if (!es[0].isIntersecting) return;
-    io.disconnect();
-    const t0 = performance.now();
-    (function step(t) {
-      const p = Math.min(1, (t - t0) / 1200);
-      el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3))) + suffix;
-      if (p < 1) requestAnimationFrame(step);
-    })(t0);
-  });
-  io.observe(el);
 });
 
 // Sottosopra: capovolge il paesaggio e intensifica l'atmosfera

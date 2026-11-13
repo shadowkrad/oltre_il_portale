@@ -9,7 +9,6 @@
     "preview": "astro preview --host"
   },
   "dependencies": {
-    "astro": "^5.18.2",
-    "leaflet": "^1.9.4"
+    "astro": "^5.18.2"
   }
 }

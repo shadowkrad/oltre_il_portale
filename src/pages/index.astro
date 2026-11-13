@@ -1,39 +1,28 @@
 ---
 import Base from '../layouts/Base.astro';
 import ServerStatus from '../components/ServerStatus.astro';
-import RealmCard from '../components/RealmCard.astro';
 import BulbWall from '../components/BulbWall.astro';
 import { site, address } from '../config/site.js';
-import { pillars, realms, steps } from '../config/content.js';
+import { realms } from '../config/content.js';
 
-const slides = [
-  { icon: '🌀', title: 'Tre dimensioni, un solo mondo', text: 'Le Terre Emerse in superficie, il Sottosopra che ne è lo specchio corrotto, la Dimensione X oltre il vuoto. Scegli dove forgiare la tua leggenda.', href: '/mondi/', cta: 'Esplora le Dimensioni' },
-  ...pillars.filter((p) => p.id !== 'fairplay').map((p) => ({ ...p, href: `/gameplay/#${p.id}`, cta: 'Scopri di più' })),
-  { icon: '🗺️', title: 'Mappa interattiva', text: 'Esplora il mondo dall\'alto: città, torri, cripte e il Cratere dell\'Abisso, direttamente dal browser.', href: '/mappa/', cta: 'Apri la mappa' },
-];
-const phrases = ['Esplora le Terre Emerse.', 'Sotto ogni città ce n’è un’altra.', 'Non tutto ciò che vedi è reale.', 'Prendi il treno a vapore.', 'Qualcuno ti sta aspettando nel Sottosopra.', 'Nessun pay-to-win. Mai.'];
+const phrases = ['Esplora le Terre Emerse.', 'Sotto ogni città ce n’è un’altra.', 'Non tutto ciò che vedi è reale.', 'Qualcuno ti sta aspettando nel Sottosopra.', 'Nessun pay-to-win. Mai.'];
+const icons = { overworld: '🌳', sottosopra: '🌋', 'dimensione-x': '🕰️' };
+const targets = { overworld: '/mondo/', sottosopra: '/sottosopra/', 'dimensione-x': '/mondo/' };
 const video = site.videoUrl;
 ---
 <Base>
   <section class="hero container">
     <h1 class="logo">OLTRE<span>IL PORTALE</span></h1>
-    <div class="splash">Server Minecraft Fantasy!</div>
     <div class="typed-wrap" data-typewriter={JSON.stringify(phrases)} aria-label={phrases.join(' ')}></div>
     <p class="only-upside warn">⚠ Sei nel Sottosopra. Non guardare indietro.</p>
     <div class="ip-box">
       <span class="ip">{address}</span>
       <button class="mc-btn" data-copy={address}>📋 Copia IP</button>
     </div>
-    {site.bedrock.enabled && (
-      <p class="platforms">
-        <span class="pill">☕ Java · {address}</span>
-        <span class="pill">📱 Bedrock · {site.bedrock.host}:{site.bedrock.port}</span>
-        <span class="pill">Windows · Xbox · PlayStation · Switch · Android · iOS</span>
-      </p>
-    )}
+    {site.bedrock.enabled && <p class="platforms"><span class="pill">☕ Java · 📱 Bedrock · multipiattaforma</span></p>}
     <div class="cta-row">
       <a href="/istruzioni/" class="mc-btn primary lg">▶ Come Entrare</a>
-      <a href="/mappa/" class="mc-btn lg">🗺 Mappa del Reame</a>
+      <a href="/mappa/" class="mc-btn lg">🗺 Mappa</a>
     </div>
   </section>
 
@@ -42,28 +31,15 @@ const video = site.videoUrl;
   </section>
 
   <section class="section container reveal">
-    <div class="section-head">
-      <h2>Cosa ti aspetta</h2>
-      <p>Un survival che reagisce alle scelte della community e al passare del tempo.</p>
-    </div>
-    <div class="panel showcase" data-showcase>
-      <div class="slides">
-        {slides.map((s) => (
-          <div class="slide" data-slide>
-            <div class="big-icon">{s.icon}</div>
-            <div>
-              <h3>{s.title}</h3>
-              <p>{s.text}</p>
-              <a class="mc-btn sm" href={s.href}>{s.cta} →</a>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div class="showcase-nav">
-        <button class="mc-btn sm" data-prev aria-label="Precedente">◀</button>
-        <div class="dots" data-dots></div>
-        <button class="mc-btn sm" data-next aria-label="Successivo">▶</button>
-      </div>
+    <div class="section-head"><h2>Tre dimensioni</h2></div>
+    <div class="grid">
+      {realms.map((r) => (
+        <a class="panel tile" href={targets[r.id]} style="text-decoration:none;color:inherit">
+          <span class="ico">{icons[r.id]}</span>
+          <h3>{r.name}</h3>
+          <p>{r.tag}</p>
+        </a>
+      ))}
     </div>
   </section>
 
@@ -71,57 +47,19 @@ const video = site.videoUrl;
     <div class="panel dark upside-teaser">
       <p class="eyebrow">📼 Per chi ama Stranger Things</p>
       <h2 class="flicker">Qualcosa si muove sotto di noi</h2>
-      <p>Sotto ogni città del server ce n'è un'altra, identica e corrotta: il <strong>Sottosopra</strong>. Le luci sul muro si accendono da sole. Prova a leggere cosa vogliono dirti.</p>
+      <p>Sotto ogni città c’è un’altra città, identica e corrotta: il <strong>Sottosopra</strong>. Leggi cosa vuole dirti.</p>
       <BulbWall messages={['SIAMO QUI SOTTO', 'NON FIDARTI DEL PORTALE', 'CORRI', 'TI STIAMO ASPETTANDO']} />
       <div class="cta-row">
         <a class="mc-btn primary lg" href="/sottosopra/">🔦 Scopri il Sottosopra</a>
-        <button class="mc-btn lg" data-upside-toggle aria-pressed="false">🙃 Capovolgi il sito</button>
       </div>
-    </div>
-  </section>
-
-  <section class="section container reveal">
-    <div class="section-head">
-      <h2>Le Tre Dimensioni</h2>
-    </div>
-    <div class="grid">
-      {realms.map((r) => (
-        <RealmCard realm={r}><a class="more" href={`/mondi/#${r.id}`}>Scopri di più →</a></RealmCard>
-      ))}
-    </div>
-  </section>
-
-  <section class="section container reveal">
-    <div class="panel center">
-      <h2>Il reame in una mappa</h2>
-      <canvas id="map-thumb" class="map-thumb" aria-label="Anteprima della mappa del reame"></canvas>
-      <p class="mt">Città, torri, cripte e il Cratere dell'Abisso, visti dall'alto.</p>
-      <a class="mc-btn primary" href="/mappa/">Apri la mappa interattiva</a>
     </div>
   </section>
 
   {video && (
     <section class="section container reveal">
-      <div class="section-head"><h2>Il video ufficiale</h2><p>La canzone di Oltre il Portale: salta dentro!</p></div>
+      <div class="section-head"><h2>Il video ufficiale</h2></div>
       <iframe class="video" src={video} title="Video ufficiale Oltre il Portale" allow="accelerometer; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
       <p class="center mt"><a href={site.videoWatchUrl} target="_blank" rel="noopener noreferrer">Guardalo su YouTube</a></p>
     </section>
   )}
-
-  <section class="section container reveal">
-    <div class="panel center">
-      <h2>Pronto a varcare il Portale?</h2>
-      <p>Bastano {steps.length} passi per entrare nel server. Ti guidiamo noi.</p>
-      <div class="cta-row">
-        <a class="mc-btn primary lg" href="/istruzioni/">▶ Segui la guida</a>
-        <a class="mc-btn lg" href={site.discord} target="_blank" rel="noopener noreferrer">💬 Discord</a>
-      </div>
-    </div>
-  </section>
-
-  <script>
-    import { drawRealmMap } from '../scripts/mapart.js';
-    import { places } from '../config/content.js';
-    drawRealmMap(document.getElementById('map-thumb'), places);
-  </script>
 </Base>
